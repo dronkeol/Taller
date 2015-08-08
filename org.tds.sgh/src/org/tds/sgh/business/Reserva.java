@@ -37,6 +37,7 @@ public class Reserva {
     this.cliente = cliente;
     this.hotel = hotel;
     this.tipoHabitacion = tipoHabitacion;
+    this.estado = EstadoReserva.Pendiente;
   }
 
   public boolean entrePeriodo(Date fechaInicio, Date fechaFin) {

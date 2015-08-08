@@ -148,7 +148,7 @@ public class CadenaHotelera {
                     p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
 
                 System.out.println("1");
-                boolean isPendiente = EstadoReserva.PENDIENTE.equals(p.getEstado());
+                boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
                 System.out.println("2");
                 boolean fechaInicioMayor =
                     Infrastructure.getInstance().getCalendario()
@@ -194,7 +194,7 @@ public class CadenaHotelera {
 	                    p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
 
 	                System.out.println("1");
-	                boolean isPendiente = EstadoReserva.PENDIENTE.equals(p.getEstado());
+	                boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
 	                System.out.println("2");
 	                boolean fechaInicioMayor =
 	                    Infrastructure.getInstance().getCalendario()

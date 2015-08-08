@@ -78,8 +78,8 @@ public class DTO {
     return new ReservaDTO(reserva.getCodigo(), reserva.getCliente().getRut(), reserva.getHotel()
         .getNombre(), reserva.getTipoHabitacion().getNombre(), reserva.getFechaInicio(),
         reserva.getFechaFin(), reserva.isModificablePorHuesped(), reserva.getEstado().toString(),
-        reserva.getHabitacion().getNombre(), reserva.getHuespedes().toArray(
-            new HuespedDTO[reserva.getHuespedes().size()]));
+        reserva.getHabitacion() != null ? reserva.getHabitacion().getNombre() : null, reserva
+            .getHuespedes().toArray(new HuespedDTO[reserva.getHuespedes().size()]));
   }
 
   public List<ReservaDTO> mapReservas(Stream<Reserva> reservas) {

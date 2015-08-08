@@ -13,6 +13,7 @@ import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
+import org.tds.sgh.infrastructure.Infrastructure;
 
 public class TomarReservaController implements ITomarReservaController {
 
@@ -134,6 +135,9 @@ public class TomarReservaController implements ITomarReservaController {
       e.printStackTrace();
     }
     Reserva r = h.registrarReserva(cliente, th, fechaInicio, fechaFin, modificablePorHuesped);
+
+    Infrastructure.getInstance().getSistemaMensajeria()
+        .enviarMail(cliente.getMail(), "Reserva agendada.", "Reserva agendada OK.");
     return DTO.getInstance().map(r);
   }
 
