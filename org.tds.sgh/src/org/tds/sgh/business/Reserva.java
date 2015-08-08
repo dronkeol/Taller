@@ -2,15 +2,19 @@ package org.tds.sgh.business;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Reserva {
 
   private int codigo;
-  private Date fechaInicio;
-  private Date fechaFin;
+  private GregorianCalendar fechaInicio;
+  private GregorianCalendar fechaFin;
+
   boolean modificablePorHuesped;
   private EstadoReserva estado;
   private Collection<Huesped> huespedes;
+  private Habitacion habitacion;
+  private TipoHabitacion tipoHabitacion;
 
   public boolean isPendiente() {
     throw new UnsupportedOperationException();
@@ -37,14 +41,6 @@ public class Reserva {
     return codigo;
   }
 
-  public Date getFechaInicio() {
-    return fechaInicio;
-  }
-
-  public Date getFechaFin() {
-    return fechaFin;
-  }
-
   public boolean isModificablePorHuesped() {
     return modificablePorHuesped;
   }
@@ -61,14 +57,6 @@ public class Reserva {
     this.codigo = codigo;
   }
 
-  public void setFechaInicio(Date fechaInicio) {
-    this.fechaInicio = fechaInicio;
-  }
-
-  public void setFechaFin(Date fechaFin) {
-    this.fechaFin = fechaFin;
-  }
-
   public void setModificablePorHuesped(boolean modificablePorHuesped) {
     this.modificablePorHuesped = modificablePorHuesped;
   }
@@ -79,6 +67,38 @@ public class Reserva {
 
   public void setHuespedes(Collection<Huesped> huespedes) {
     this.huespedes = huespedes;
+  }
+
+  public Habitacion getHabitacion() {
+    return habitacion;
+  }
+
+  public void setHabitacion(Habitacion habitacion) {
+    this.habitacion = habitacion;
+  }
+
+  public TipoHabitacion getTipoHabitacion() {
+    return tipoHabitacion;
+  }
+
+  public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
+    this.tipoHabitacion = tipoHabitacion;
+  }
+
+  public GregorianCalendar getFechaInicio() {
+    return fechaInicio;
+  }
+
+  public GregorianCalendar getFechaFin() {
+    return fechaFin;
+  }
+
+  public void setFechaInicio(GregorianCalendar fechaInicio) {
+    this.fechaInicio = fechaInicio;
+  }
+
+  public void setFechaFin(GregorianCalendar fechaFin) {
+    this.fechaFin = fechaFin;
   }
 
 
