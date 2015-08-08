@@ -23,6 +23,9 @@ public class TomarReservaController implements ITomarReservaController {
 
   private CadenaHotelera cadenaHotelera;
 
+  public TomarReservaController(CadenaHotelera cadenaHotelera) {
+		this.cadenaHotelera = cadenaHotelera;
+	}
   
   public List<ReservaDTO> buscarReservasPendientes(String nombreHotel) {
     Hotel hotel;

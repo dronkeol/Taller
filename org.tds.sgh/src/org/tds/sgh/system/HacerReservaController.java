@@ -10,7 +10,8 @@ public class HacerReservaController extends TomarReservaController implements
   //private CadenaHotelera cadenaHotelera;
 
   public HacerReservaController(CadenaHotelera cadenaHotelera) {
-	  
-	  super.setCadenaHotelera(cadenaHotelera);
+	  super(cadenaHotelera);
+
+	  //super.setCadenaHotelera(cadenaHotelera);
   }
 }

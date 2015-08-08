@@ -42,7 +42,8 @@ public class ControllerFactory implements IControllerFactory {
 
   public ITomarReservaController createTomarReservaController() {
     // TODO
-	  return new TomarReservaController();
+	  //return new TomarReservaController();
+	  return new TomarReservaController(cadenaHotelera);
     //throw new NotImplementedException();
   }
 }
