@@ -24,15 +24,15 @@ public class TomarReservaController implements ITomarReservaController {
 
 
   public List<ReservaDTO> buscarReservasPendientes(String nombreHotel) {
-		Hotel hotel;
+    Hotel hotel;
 
-		try {
-			hotel = this.cadenaHotelera.buscarHotel(nombreHotel);
-		} catch (Exception e) {
-			return new ArrayList<ReservaDTO>();
-		}
+    try {
+      hotel = this.cadenaHotelera.buscarHotel(nombreHotel);
+    } catch (Exception e) {
+      return new ArrayList<ReservaDTO>();
+    }
 
-		return DTO.getInstance().mapReservas(hotel.listarReservas().filter(p -> p.isPendiente()));
+    return DTO.getInstance().mapReservas(hotel.listarReservas().filter(p -> p.isPendiente()));
   }
 
   public ReservaDTO registrarHuesped(String ombre, String documento) {
@@ -48,14 +48,14 @@ public class TomarReservaController implements ITomarReservaController {
   }
 
   public ClienteDTO seleccionarCliente(String rut) {
-    ClienteDTO cliente = null;
+    Cliente cliente = null;
     try {
-      cliente = (DTO.getInstance().map(cadenaHotelera.buscarCliente(rut)));
+      cliente = cadenaHotelera.buscarCliente(rut);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    return cliente;
+    this.cliente = cliente;
+    return DTO.getInstance().map(cliente);
   }
 
   public ClienteDTO buscarClientePorPatron(String rut) {
