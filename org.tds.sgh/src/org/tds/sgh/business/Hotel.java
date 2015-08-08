@@ -15,10 +15,6 @@ public class Hotel {
 
   private Map<Integer, Reserva> reservas;
 
-  private void dumb2() {
-
-  }
-
   // Constructors (public) ----------------------------------------------------------------------
 
   public Hotel(String nombre, String pais) {
@@ -40,11 +36,6 @@ public class Hotel {
     return pais;
   }
 
-  private void dumb() {
-
-  }
-
-
   // Operations (public) ------------------------------------------------------------------------
 
   public Habitacion agregarHabitacion(TipoHabitacion tipoHabitacion, String nombre)
@@ -64,7 +55,7 @@ public class Hotel {
   }
 
   public Stream<Reserva> listarReservas() {
-    return reservas.values().stream();
+    return reservas == null ? Stream.of(new Reserva[] {}) : reservas.values().stream();
   }
 
   public void registrarReserva(Reserva r) {

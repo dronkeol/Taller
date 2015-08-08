@@ -141,13 +141,26 @@ public class CadenaHotelera {
 
     Stream<Reserva> lstReservas =
         oHotel.listarReservas().filter(
-            p -> p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion)
+            p ->
+              {
 
-                && EstadoReserva.PENDIENTE.equals(p.getEstado())
-                && Infrastructure.getInstance().getCalendario()
-                    .esPosterior(p.getFechaInicio(), fechaInicio)
-                && Infrastructure.getInstance().getCalendario()
-                    .esAnterior(p.getFechaFin(), fechaFin)
+                boolean equalsTipoHabitacion =
+                    p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
+
+                System.out.println("1");
+                boolean isPendiente = EstadoReserva.PENDIENTE.equals(p.getEstado());
+                System.out.println("2");
+                boolean fechaInicioMayor =
+                    Infrastructure.getInstance().getCalendario()
+                        .esPosterior(p.getFechaInicio(), fechaInicio);
+                System.out.println("3");
+                boolean fechaFinMenor =
+                    Infrastructure.getInstance().getCalendario()
+                        .esAnterior(p.getFechaFin(), fechaFin);
+                System.out.println("4");
+                return equalsTipoHabitacion && isPendiente && fechaInicioMayor && fechaFinMenor;
+
+              }
 
 
 
