@@ -119,8 +119,13 @@ public class CadenaHotelera {
     return tiposHabitacion.values().stream();
   }
 
+  public void lala() {
+
+  }
+
   public boolean confirmaDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+
 
     Hotel oHotel = null;
     try {
