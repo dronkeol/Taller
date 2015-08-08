@@ -65,15 +65,15 @@ public class TomarReservaController implements ITomarReservaController {
 
   public ClienteDTO registrarCliente(String rut, String nombre, String direccion, String telefono,
       String mail) {
-    ClienteDTO cliente = null;
-    try {
-      cliente =
-          DTO.getInstance().map(
-              cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return cliente;
+	  
+	  Cliente cliente = null;
+	    try {
+	      cliente = cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail);
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+	    this.cliente = cliente;
+	    return DTO.getInstance().map(cliente);
   }
 
   public CadenaHotelera getCadenaHotelera() {
