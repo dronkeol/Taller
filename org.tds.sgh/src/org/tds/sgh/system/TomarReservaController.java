@@ -1,13 +1,10 @@
 package org.tds.sgh.system;
 
-import java.util.Collection;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.business.Cliente;
-import org.tds.sgh.business.Hotel;
 import org.tds.sgh.business.Reserva;
 import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
@@ -56,7 +53,13 @@ public class TomarReservaController implements ITomarReservaController {
 
   public ClienteDTO registrarCliente(String rut, String nombre, String direccion, String telefono,
       String mail) {
-    throw new UnsupportedOperationException();
+	  ClienteDTO cliente = null;
+	  try {
+		cliente = DTO.getInstance().map(cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail));
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	  return cliente;
   }
 
   public CadenaHotelera getCadenaHotelera() {
