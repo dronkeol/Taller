@@ -61,10 +61,11 @@ public class Hotel {
 
 
 
-  public Reserva registrarReserva(Cliente cliente, GregorianCalendar fechaInicio,
-      GregorianCalendar fechaFin, boolean modificablePorHuesped) {
+  public Reserva registrarReserva(Cliente cliente, TipoHabitacion tipoHabitacion,
+      GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
 
-    Reserva r = new Reserva(cliente, fechaInicio, fechaFin, modificablePorHuesped);
+    Reserva r =
+        new Reserva(this, cliente, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
     if (this.reservas == null) {
       this.reservas = new HashMap<Integer, Reserva>();
     }

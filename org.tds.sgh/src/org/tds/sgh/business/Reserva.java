@@ -24,8 +24,8 @@ public class Reserva {
 
   }
 
-  public Reserva(Cliente cliente, GregorianCalendar fechaInicio, GregorianCalendar fechaFin,
-      boolean modificablePorHuesped) {
+  public Reserva(Hotel hotel, Cliente cliente, TipoHabitacion tipoHabitacion,
+      GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
 
     AtomicInteger atomicInteger = new AtomicInteger();
     this.codigo = atomicInteger.incrementAndGet();
@@ -35,6 +35,8 @@ public class Reserva {
     this.modificablePorHuesped = modificablePorHuesped;
     this.huespedes = new ArrayList<Huesped>();
     this.cliente = cliente;
+    this.hotel = hotel;
+    this.tipoHabitacion = tipoHabitacion;
   }
 
   public boolean entrePeriodo(Date fechaInicio, Date fechaFin) {

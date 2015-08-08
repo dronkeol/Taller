@@ -7,6 +7,7 @@ import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.business.Cliente;
 import org.tds.sgh.business.Hotel;
 import org.tds.sgh.business.Reserva;
+import org.tds.sgh.business.TipoHabitacion;
 import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
@@ -116,12 +117,14 @@ public class TomarReservaController implements ITomarReservaController {
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped)
       throws Exception {
     Hotel h = null;
+    TipoHabitacion th = null;
     try {
       h = this.cadenaHotelera.buscarHotel(nombreHotel);
+      th = this.cadenaHotelera.buscarTipoHabitacion(nombreTipoHabitacion);
     } catch (Exception e) {
       e.printStackTrace();
     }
-    Reserva r = h.registrarReserva(cliente, fechaInicio, fechaFin, modificablePorHuesped);
+    Reserva r = h.registrarReserva(cliente, th, fechaInicio, fechaFin, modificablePorHuesped);
     return DTO.getInstance().map(r);
   }
 
