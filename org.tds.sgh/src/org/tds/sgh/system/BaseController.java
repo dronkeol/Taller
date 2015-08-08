@@ -7,31 +7,31 @@ import org.tds.sgh.business.Cliente;
 import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
 
-public class IdentificarClienteEnRecepcionController implements
-    IIdentificarClienteEnRecepcionController {
+public class BaseController {
 
   private CadenaHotelera cadenaHotelera;
-
   private Cliente cliente;
 
-  public void setCliente(Cliente cliente) {
-    this.cliente = cliente;
-  }
-
-  public Cliente getCliente() {
-    return cliente;
+  public BaseController(CadenaHotelera cadenaHotelera) {
+    this.cadenaHotelera = cadenaHotelera;
   }
 
   public CadenaHotelera getCadenaHotelera() {
     return cadenaHotelera;
   }
 
-  public IdentificarClienteEnRecepcionController(CadenaHotelera cadenaHotelera) {
-    super();
+  public Cliente getCliente() {
+    return cliente;
+  }
+
+  public void setCadenaHotelera(CadenaHotelera cadenaHotelera) {
     this.cadenaHotelera = cadenaHotelera;
   }
 
-  @Override
+  public void setCliente(Cliente cliente) {
+    this.cliente = cliente;
+  }
+
   public List<ClienteDTO> buscarCliente(String patronNombreCliente) {
     return DTO.getInstance().mapClientes(
         this.getCadenaHotelera().buscarClientes(patronNombreCliente));
@@ -47,5 +47,6 @@ public class IdentificarClienteEnRecepcionController implements
     this.cliente = cliente;
     return DTO.getInstance().map(cliente);
   }
+
 
 }

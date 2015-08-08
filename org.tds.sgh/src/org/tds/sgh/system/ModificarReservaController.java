@@ -8,7 +8,7 @@ import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
 
-public class ModificarReservaController extends IdentificarReservasClienteController implements
+public class ModificarReservaController extends BaseController implements
     IModificarReservaController {
 
   public ModificarReservaController(CadenaHotelera cadenaHotelera) {
@@ -48,4 +48,6 @@ public class ModificarReservaController extends IdentificarReservasClienteContro
     // TODO Auto-generated method stub
     return null;
   }
+
+
 }

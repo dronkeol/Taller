@@ -87,4 +87,5 @@ public class TomarReservaController extends ModificarReservaController implement
         .enviarMail(super.getCliente().getMail(), "Reserva agendada.", "Reserva agendada OK.");
     return DTO.getInstance().map(r);
   }
+
 }
