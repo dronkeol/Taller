@@ -6,100 +6,115 @@ import java.util.GregorianCalendar;
 
 public class Reserva {
 
-  private int codigo;
-  private GregorianCalendar fechaInicio;
-  private GregorianCalendar fechaFin;
+	private int codigo;
+	private Cliente cliente;
+	private Hotel hotel;
+	private TipoHabitacion tipoHabitacion;
+	private GregorianCalendar fechaInicio;
+	private GregorianCalendar fechaFin;
+	boolean modificablePorHuesped;
+	private EstadoReserva estado;
+	private Collection<Huesped> huespedes;
+	private Habitacion habitacion;
 
-  boolean modificablePorHuesped;
-  private EstadoReserva estado;
-  private Collection<Huesped> huespedes;
-  private Habitacion habitacion;
-  private TipoHabitacion tipoHabitacion;
+	public boolean isPendiente() {
+		throw new UnsupportedOperationException();
 
-  public boolean isPendiente() {
-    throw new UnsupportedOperationException();
+	}
 
-  }
+	public Reserva crearReserva(Date fechaInicio, Date fechaFin, boolean modificablePorHuesped) {
+		throw new UnsupportedOperationException();
+	}
 
-  public Reserva crearReserva(Date fechaInicio, Date fechaFin, boolean modificablePorHuesped) {
-    throw new UnsupportedOperationException();
-  }
+	public boolean entrePeriodo(Date fechaInicio, Date fechaFin) {
+		throw new UnsupportedOperationException();
+	}
 
-  public boolean entrePeriodo(Date fechaInicio, Date fechaFin) {
-    throw new UnsupportedOperationException();
-  }
+	public Reserva find(int codigoReserva) {
+		throw new UnsupportedOperationException();
+	}
 
-  public Reserva find(int codigoReserva) {
-    throw new UnsupportedOperationException();
-  }
+	public void registrarHuesped(String nombre, String documento) {
+		throw new UnsupportedOperationException();
+	}
 
-  public void registrarHuesped(String nombre, String documento) {
-    throw new UnsupportedOperationException();
-  }
+	public int getCodigo() {
+		return codigo;
+	}
 
-  public int getCodigo() {
-    return codigo;
-  }
+	public boolean isModificablePorHuesped() {
+		return modificablePorHuesped;
+	}
 
-  public boolean isModificablePorHuesped() {
-    return modificablePorHuesped;
-  }
+	public EstadoReserva getEstado() {
+		return estado;
+	}
 
-  public EstadoReserva getEstado() {
-    return estado;
-  }
+	public Collection<Huesped> getHuespedes() {
+		return huespedes;
+	}
 
-  public Collection<Huesped> getHuespedes() {
-    return huespedes;
-  }
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 
-  public void setCodigo(int codigo) {
-    this.codigo = codigo;
-  }
+	public void setModificablePorHuesped(boolean modificablePorHuesped) {
+		this.modificablePorHuesped = modificablePorHuesped;
+	}
 
-  public void setModificablePorHuesped(boolean modificablePorHuesped) {
-    this.modificablePorHuesped = modificablePorHuesped;
-  }
+	public void setEstado(EstadoReserva estado) {
+		this.estado = estado;
+	}
 
-  public void setEstado(EstadoReserva estado) {
-    this.estado = estado;
-  }
+	public void setHuespedes(Collection<Huesped> huespedes) {
+		this.huespedes = huespedes;
+	}
 
-  public void setHuespedes(Collection<Huesped> huespedes) {
-    this.huespedes = huespedes;
-  }
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
 
-  public Habitacion getHabitacion() {
-    return habitacion;
-  }
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
+	}
 
-  public void setHabitacion(Habitacion habitacion) {
-    this.habitacion = habitacion;
-  }
+	public TipoHabitacion getTipoHabitacion() {
+		return tipoHabitacion;
+	}
 
-  public TipoHabitacion getTipoHabitacion() {
-    return tipoHabitacion;
-  }
+	public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
+		this.tipoHabitacion = tipoHabitacion;
+	}
 
-  public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
-    this.tipoHabitacion = tipoHabitacion;
-  }
+	public GregorianCalendar getFechaInicio() {
+		return fechaInicio;
+	}
 
-  public GregorianCalendar getFechaInicio() {
-    return fechaInicio;
-  }
+	public GregorianCalendar getFechaFin() {
+		return fechaFin;
+	}
 
-  public GregorianCalendar getFechaFin() {
-    return fechaFin;
-  }
+	public void setFechaInicio(GregorianCalendar fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
 
-  public void setFechaInicio(GregorianCalendar fechaInicio) {
-    this.fechaInicio = fechaInicio;
-  }
+	public void setFechaFin(GregorianCalendar fechaFin) {
+		this.fechaFin = fechaFin;
+	}
 
-  public void setFechaFin(GregorianCalendar fechaFin) {
-    this.fechaFin = fechaFin;
-  }
+	public Cliente getCliente() {
+		return cliente;
+	}
 
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 }
