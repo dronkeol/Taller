@@ -3,12 +3,24 @@ package org.tds.sgh.system;
 import java.util.List;
 
 import org.tds.sgh.business.CadenaHotelera;
+import org.tds.sgh.business.Cliente;
 import org.tds.sgh.dtos.ClienteDTO;
+import org.tds.sgh.dtos.DTO;
 
 public class IdentificarClienteEnRecepcionController implements
     IIdentificarClienteEnRecepcionController {
 
   private CadenaHotelera cadenaHotelera;
+
+  private Cliente cliente;
+
+  public void setCliente(Cliente cliente) {
+    this.cliente = cliente;
+  }
+
+  public Cliente getCliente() {
+    return cliente;
+  }
 
   public CadenaHotelera getCadenaHotelera() {
     return cadenaHotelera;
@@ -21,13 +33,19 @@ public class IdentificarClienteEnRecepcionController implements
 
   @Override
   public List<ClienteDTO> buscarCliente(String patronNombreCliente) {
-    return null;
+    return DTO.getInstance().mapClientes(
+        this.getCadenaHotelera().buscarClientes(patronNombreCliente));
   }
 
-  @Override
-  public ClienteDTO seleccionarCliente(String rut) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+  public ClienteDTO seleccionarCliente(String rut) {
+    Cliente cliente = null;
+    try {
+      cliente = this.getCadenaHotelera().buscarCliente(rut);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    this.cliente = cliente;
+    return DTO.getInstance().map(cliente);
   }
 
 }

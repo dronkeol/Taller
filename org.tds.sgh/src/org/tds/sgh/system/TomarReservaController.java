@@ -19,8 +19,6 @@ public class TomarReservaController extends ModificarReservaController implement
 
   private Reserva reserva;
 
-  private Cliente cliente;
-
   public TomarReservaController(CadenaHotelera cadenaHotelera) {
     super(cadenaHotelera);
   }
@@ -58,7 +56,7 @@ public class TomarReservaController extends ModificarReservaController implement
     } catch (Exception e) {
       e.printStackTrace();
     }
-    this.cliente = cliente;
+    super.setCliente(cliente);
     return DTO.getInstance().map(cliente);
   }
 
@@ -66,16 +64,8 @@ public class TomarReservaController extends ModificarReservaController implement
     return reserva;
   }
 
-  public Cliente getCliente() {
-    return cliente;
-  }
-
   public void setReserva(Reserva reserva) {
     this.reserva = reserva;
-  }
-
-  public void setCliente(Cliente cliente) {
-    this.cliente = cliente;
   }
 
   @Override
@@ -90,10 +80,11 @@ public class TomarReservaController extends ModificarReservaController implement
     } catch (Exception e) {
       e.printStackTrace();
     }
-    Reserva r = h.registrarReserva(cliente, th, fechaInicio, fechaFin, modificablePorHuesped);
+    Reserva r =
+        h.registrarReserva(super.getCliente(), th, fechaInicio, fechaFin, modificablePorHuesped);
 
     Infrastructure.getInstance().getSistemaMensajeria()
-        .enviarMail(cliente.getMail(), "Reserva agendada.", "Reserva agendada OK.");
+        .enviarMail(super.getCliente().getMail(), "Reserva agendada.", "Reserva agendada OK.");
     return DTO.getInstance().map(r);
   }
 }
