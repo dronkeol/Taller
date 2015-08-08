@@ -22,8 +22,12 @@ public class Reserva {
 
 	}
 
-	public Reserva crearReserva(Date fechaInicio, Date fechaFin, boolean modificablePorHuesped) {
-		throw new UnsupportedOperationException();
+	public Reserva crearReserva(GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+		this.modificablePorHuesped = modificablePorHuesped;
+		return this;
+		
 	}
 
 	public boolean entrePeriodo(Date fechaInicio, Date fechaFin) {

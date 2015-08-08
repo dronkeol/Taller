@@ -109,8 +109,33 @@ public class TomarReservaController implements ITomarReservaController {
   public ReservaDTO registrarReserva(String nombreHotel, String nombreTipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped)
       throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+	  
+	  
+	  	Hotel h = null;
+	  	try {
+			h = this.cadenaHotelera.buscarHotel(nombreHotel);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/*
+	  	try {
+			TipoHabitacion th = this.cadenaHotelera.buscarTipoHabitacion(nombreTipoHabitacion);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+	  	
+		Reserva r = this.reserva.crearReserva(fechaInicio, fechaFin, modificablePorHuesped);
+		
+		h.registrarReserva(r);
+		
+		
+		return DTO.getInstance().map(r);
+	  
+	
   }
 
   @Override
