@@ -23,7 +23,7 @@ public class TomarReservaController implements ITomarReservaController {
 
   private CadenaHotelera cadenaHotelera;
 
-
+  
   public List<ReservaDTO> buscarReservasPendientes(String nombreHotel) {
     Hotel hotel;
 
@@ -104,7 +104,6 @@ public class TomarReservaController implements ITomarReservaController {
 
   @Override
   public List<ClienteDTO> buscarCliente(String patronNombreCliente) {
-
     return DTO.getInstance().mapClientes(cadenaHotelera.buscarClientes(patronNombreCliente));
   }
 
