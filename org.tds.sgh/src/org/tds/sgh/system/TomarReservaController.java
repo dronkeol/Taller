@@ -27,11 +27,6 @@ public class TomarReservaController implements ITomarReservaController {
     throw new UnsupportedOperationException();
   }
 
-  public Reserva seleccionarReserva() {
-    throw new UnsupportedOperationException();
-  }
-
-
   public ReservaDTO registrarHuesped(String ombre, String documento) {
     throw new UnsupportedOperationException();
   }
@@ -40,24 +35,19 @@ public class TomarReservaController implements ITomarReservaController {
     throw new UnsupportedOperationException();
   }
 
-  public void modificarReserva(String nombreHotel, String nombreTipoHabitacion, Date fechaInicio,
-      Date fecha) {
-    throw new UnsupportedOperationException();
-  }
-
   public List<ReservaDTO> buscarReservasDelCliente() {
     throw new UnsupportedOperationException();
   }
 
   public ClienteDTO seleccionarCliente(String rut) {
-	  ClienteDTO cliente = null;
-		try {
-			cliente = (DTO.getInstance().map(cadenaHotelera.buscarCliente(rut)));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return cliente;
+    ClienteDTO cliente = null;
+    try {
+      cliente = (DTO.getInstance().map(cadenaHotelera.buscarCliente(rut)));
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return cliente;
   }
 
   public ClienteDTO buscarClientePorPatron(String rut) {
@@ -66,17 +56,6 @@ public class TomarReservaController implements ITomarReservaController {
 
   public ClienteDTO registrarCliente(String rut, String nombre, String direccion, String telefono,
       String mail) {
-    throw new UnsupportedOperationException();
-  }
-
-  public boolean confirmaDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
-      GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
-    return cadenaHotelera.confirmaDisponibilidad(nombreHotel, nombreTipoHabitacion, fechaInicio,
-        fechaFin);
-  }
-
-  public Reserva registrarReserva(String nombreHotel, String nombreTipoHabitacio, Date fechaInicio,
-      Date fechaFin, boolean modificablePorHuesped) {
     throw new UnsupportedOperationException();
   }
 
@@ -114,15 +93,15 @@ public class TomarReservaController implements ITomarReservaController {
 
   @Override
   public List<ClienteDTO> buscarCliente(String patronNombreCliente) {
-	  
-	  return DTO.getInstance().mapClientes(cadenaHotelera.buscarClientes(patronNombreCliente));
+
+    return DTO.getInstance().mapClientes(cadenaHotelera.buscarClientes(patronNombreCliente));
   }
 
   @Override
   public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
-    // TODO Auto-generated method stub
-    return false;
+    return cadenaHotelera.confirmaDisponibilidad(nombreHotel, nombreTipoHabitacion, fechaInicio,
+        fechaFin);
   }
 
   @Override
