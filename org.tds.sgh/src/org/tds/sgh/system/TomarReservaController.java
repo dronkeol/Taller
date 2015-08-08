@@ -59,12 +59,6 @@ public class TomarReservaController implements ITomarReservaController {
     throw new UnsupportedOperationException();
   }
 
-  public Collection<Hotel> sugerirAlternativa(String pais, String nombreTipoHabitacion,
-      Date fechaInicio, Date fechaFin) {
-    throw new UnsupportedOperationException();
-  }
-
-
   public CadenaHotelera getCadenaHotelera() {
     return cadenaHotelera;
   }
