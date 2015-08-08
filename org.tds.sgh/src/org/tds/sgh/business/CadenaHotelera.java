@@ -175,48 +175,15 @@ public class CadenaHotelera {
     return countHabitaciones > countReservas;
   }
 
-  public boolean sugerirAlternativas(String pais, String nombreHotel, String nombreTipoHabitacion,
+  public Stream<Hotel> sugerirAlternativas(String pais, String nombreTipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
-
-
-    Hotel oHotel = null;
-    try {
-      oHotel = this.buscarHotel(nombreHotel);
-    } catch (Exception e) {
-      return false;
-    }
-
-    Stream<Habitacion> lstHabitaciones =
-        oHotel.listarHabitaciones().filter(
-            h -> h.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion));
-    long countHabitaciones = lstHabitaciones.count();
-
-    Stream<Reserva> lstReservas =
-        oHotel.listarReservas().filter(
-            p ->
-              {
-
-                boolean equalsTipoHabitacion =
-                    p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
-
-                System.out.println("1");
-                boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
-                System.out.println("2");
-                boolean fechaInicioMayor =
-                    Infrastructure.getInstance().getCalendario()
-                        .esPosterior(p.getFechaInicio(), fechaInicio);
-                System.out.println("3");
-                boolean fechaFinMenor =
-                    Infrastructure.getInstance().getCalendario()
-                        .esAnterior(p.getFechaFin(), fechaFin);
-                System.out.println("4");
-                return equalsTipoHabitacion && isPendiente && fechaInicioMayor && fechaFinMenor;
-
-              }
-
-        );
-    long countReservas = lstReservas.count();
-    return countHabitaciones > countReservas;
+    return this.hoteles
+        .values()
+        .stream()
+        .filter(h -> h.getPais().equals(pais))
+        .filter(
+            h -> this.confirmaDisponibilidad(h.getNombre(), nombreTipoHabitacion, fechaInicio,
+                fechaFin));
   }
 
 }

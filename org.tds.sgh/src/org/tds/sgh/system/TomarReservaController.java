@@ -7,7 +7,6 @@ import java.util.List;
 import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.business.Cliente;
 import org.tds.sgh.business.Hotel;
-import org.tds.sgh.business.Huesped;
 import org.tds.sgh.business.Reserva;
 import org.tds.sgh.business.TipoHabitacion;
 import org.tds.sgh.dtos.ClienteDTO;
@@ -38,7 +37,7 @@ public class TomarReservaController implements ITomarReservaController {
   }
 
   public ReservaDTO registrarHuesped(String ombre, String documento) {
-	  return DTO.getInstance().map(reserva.registrarHuesped(ombre, documento));
+    return DTO.getInstance().map(reserva.registrarHuesped(ombre, documento));
   }
 
   public ReservaDTO tomarReserva() {
@@ -66,15 +65,15 @@ public class TomarReservaController implements ITomarReservaController {
 
   public ClienteDTO registrarCliente(String rut, String nombre, String direccion, String telefono,
       String mail) {
-	  
-	  Cliente cliente = null;
-	    try {
-	      cliente = cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail);
-	    } catch (Exception e) {
-	      e.printStackTrace();
-	    }
-	    this.cliente = cliente;
-	    return DTO.getInstance().map(cliente);
+
+    Cliente cliente = null;
+    try {
+      cliente = cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    this.cliente = cliente;
+    return DTO.getInstance().map(cliente);
   }
 
   public CadenaHotelera getCadenaHotelera() {
@@ -119,8 +118,8 @@ public class TomarReservaController implements ITomarReservaController {
   @Override
   public List<HotelDTO> sugerirAlternativas(String pais, String nombreTipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+    return DTO.getInstance().mapHoteles(
+        this.cadenaHotelera.sugerirAlternativas(pais, nombreTipoHabitacion, fechaInicio, fechaFin));
   }
 
   @Override
