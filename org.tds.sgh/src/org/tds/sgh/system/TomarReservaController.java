@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.business.Cliente;
+import org.tds.sgh.business.Hotel;
 import org.tds.sgh.business.Reserva;
 import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
