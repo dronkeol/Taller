@@ -36,7 +36,8 @@ public class TomarReservaController extends ModificarReservaController implement
   }
 
   public ReservaDTO registrarHuesped(String ombre, String documento) {
-    return DTO.getInstance().map(reserva.registrarHuesped(ombre, documento));
+	reserva = reserva.registrarHuesped(ombre, documento);
+    return DTO.getInstance().map(reserva);
   }
 
   public ReservaDTO tomarReserva() {

@@ -76,12 +76,17 @@ public class DTO {
 
   public ReservaDTO map(Reserva reserva) {
     int largo = reserva.getHuespedes().size();
+    int i = 0;
+    HuespedDTO[] huespedDTO = new HuespedDTO[largo];
+    
+    for(Huesped h : reserva.getHuespedes()){
+    	huespedDTO[i++]=DTO.getInstance().map(h);
+    }
 
     return new ReservaDTO(reserva.getCodigo(), reserva.getCliente().getRut(), reserva.getHotel()
         .getNombre(), reserva.getTipoHabitacion().getNombre(), reserva.getFechaInicio(),
         reserva.getFechaFin(), reserva.isModificablePorHuesped(), reserva.getEstado().toString(),
-        reserva.getHabitacion() != null ? reserva.getHabitacion().getNombre() : null, reserva
-            .getHuespedes().toArray(new HuespedDTO[reserva.getHuespedes().size()]));
+        reserva.getHabitacion() != null ? reserva.getHabitacion().getNombre() : null, huespedDTO);
   }
 
   public List<ReservaDTO> mapReservas(Stream<Reserva> reservas) {
