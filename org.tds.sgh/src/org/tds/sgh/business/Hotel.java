@@ -16,6 +16,7 @@ public class Hotel {
   private Map<Integer, Reserva> reservas;
 
 
+
   // Constructors (public) ----------------------------------------------------------------------
 
   public Hotel(String nombre, String pais) {
