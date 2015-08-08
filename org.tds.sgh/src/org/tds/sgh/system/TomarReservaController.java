@@ -54,13 +54,15 @@ public class TomarReservaController implements ITomarReservaController {
 
   public ClienteDTO registrarCliente(String rut, String nombre, String direccion, String telefono,
       String mail) {
-	  ClienteDTO cliente = null;
-	  try {
-		cliente = DTO.getInstance().map(cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail));
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	  return cliente;
+    ClienteDTO cliente = null;
+    try {
+      cliente =
+          DTO.getInstance().map(
+              cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return cliente;
   }
 
   public CadenaHotelera getCadenaHotelera() {
@@ -113,33 +115,14 @@ public class TomarReservaController implements ITomarReservaController {
   public ReservaDTO registrarReserva(String nombreHotel, String nombreTipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped)
       throws Exception {
-	  
-	  
-	  	Hotel h = null;
-	  	try {
-			h = this.cadenaHotelera.buscarHotel(nombreHotel);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		/*
-	  	try {
-			TipoHabitacion th = this.cadenaHotelera.buscarTipoHabitacion(nombreTipoHabitacion);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-	  	
-		Reserva r = this.reserva.crearReserva(fechaInicio, fechaFin, modificablePorHuesped);
-		
-		h.registrarReserva(r);
-		
-		
-		return DTO.getInstance().map(r);
-	  
-	
+    Hotel h = null;
+    try {
+      h = this.cadenaHotelera.buscarHotel(nombreHotel);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    Reserva r = h.registrarReserva(cliente, fechaInicio, fechaFin, modificablePorHuesped);
+    return DTO.getInstance().map(r);
   }
 
   @Override

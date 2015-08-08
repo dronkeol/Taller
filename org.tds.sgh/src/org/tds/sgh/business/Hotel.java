@@ -1,5 +1,6 @@
 package org.tds.sgh.business;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -58,7 +59,16 @@ public class Hotel {
     return reservas == null ? Stream.of(new Reserva[] {}) : reservas.values().stream();
   }
 
-  public void registrarReserva(Reserva r) {
+
+
+  public Reserva registrarReserva(Cliente cliente, GregorianCalendar fechaInicio,
+      GregorianCalendar fechaFin, boolean modificablePorHuesped) {
+
+    Reserva r = new Reserva(cliente, fechaInicio, fechaFin, modificablePorHuesped);
+    if (this.reservas == null) {
+      this.reservas = new HashMap<Integer, Reserva>();
+    }
     this.reservas.put(r.getCodigo(), r);
+    return r;
   }
 }
