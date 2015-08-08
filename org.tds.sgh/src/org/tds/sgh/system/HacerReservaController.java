@@ -7,9 +7,9 @@ import org.tds.sgh.business.CadenaHotelera;
 public class HacerReservaController extends TomarReservaController implements
     IHacerReservaController {
 
-  private CadenaHotelera cadenaHotelera;
+  //private CadenaHotelera cadenaHotelera;
 
   public HacerReservaController(CadenaHotelera cadenaHotelera) {
-    this.cadenaHotelera = cadenaHotelera;
+	  super.setCadenaHotelera(cadenaHotelera);
   }
 }

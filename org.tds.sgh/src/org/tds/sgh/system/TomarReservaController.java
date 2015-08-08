@@ -10,6 +10,7 @@ import org.tds.sgh.business.Cliente;
 import org.tds.sgh.business.Hotel;
 import org.tds.sgh.business.Reserva;
 import org.tds.sgh.dtos.ClienteDTO;
+import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
 
@@ -49,7 +50,14 @@ public class TomarReservaController implements ITomarReservaController {
   }
 
   public ClienteDTO seleccionarCliente(String rut) {
-    throw new UnsupportedOperationException();
+	  ClienteDTO cliente = null;
+		try {
+			cliente = (DTO.getInstance().map(cadenaHotelera.buscarCliente(rut)));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cliente;
   }
 
   public ClienteDTO buscarClientePorPatron(String rut) {
@@ -106,8 +114,7 @@ public class TomarReservaController implements ITomarReservaController {
 
   @Override
   public List<ClienteDTO> buscarCliente(String patronNombreCliente) {
-    // TODO Auto-generated method stub
-    return null;
+	  return DTO.getInstance().mapClientes(cadenaHotelera.buscarClientes(patronNombreCliente));
   }
 
   @Override
