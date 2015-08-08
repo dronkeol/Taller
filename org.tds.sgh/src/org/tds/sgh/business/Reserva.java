@@ -49,10 +49,13 @@ public class Reserva {
   }
 
   public Reserva registrarHuesped(String nombre, String documento) {
-	  Huesped huesped = new Huesped();
-	  huesped.setDocumento(documento);
-	  huesped.setNombre(nombre);
-	  this.huespedes.add(huesped);
+    Huesped huesped = new Huesped();
+    huesped.setDocumento(documento);
+    huesped.setNombre(nombre);
+    if (huespedes == null) {
+      huespedes = new ArrayList<Huesped>();
+    }
+    this.huespedes.add(huesped);
     return this;
   }
 
