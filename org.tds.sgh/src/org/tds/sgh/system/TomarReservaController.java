@@ -62,8 +62,7 @@ public class TomarReservaController implements ITomarReservaController {
   }
 
   public boolean confirmaDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
-      java.util.Date fechaInicio, java.util.Date fechaFin) {
-
+      GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
     return cadenaHotelera.confirmaDisponibilidad(nombreHotel, nombreTipoHabitacion, fechaInicio,
         fechaFin);
   }
