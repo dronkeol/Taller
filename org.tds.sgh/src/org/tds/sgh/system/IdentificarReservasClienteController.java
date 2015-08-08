@@ -6,7 +6,7 @@ import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.ReservaDTO;
 
-public class IdentificarReservasClienteController extends IdentificarClenteEnRecepcionController
+public class IdentificarReservasClienteController extends IdentificarClienteEnRecepcionController
     implements IIdentificarReservaClienteController {
 
   public IdentificarReservasClienteController(CadenaHotelera cadenaHotelera) {

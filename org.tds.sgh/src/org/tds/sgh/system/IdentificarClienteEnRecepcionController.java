@@ -10,6 +10,10 @@ public class IdentificarClienteEnRecepcionController implements
 
   private CadenaHotelera cadenaHotelera;
 
+  public CadenaHotelera getCadenaHotelera() {
+    return cadenaHotelera;
+  }
+
   public IdentificarClienteEnRecepcionController(CadenaHotelera cadenaHotelera) {
     super();
     this.cadenaHotelera = cadenaHotelera;
