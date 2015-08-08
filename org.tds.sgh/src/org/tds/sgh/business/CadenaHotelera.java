@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.tds.sgh.infrastructure.Infrastructure;
@@ -189,6 +190,17 @@ public class CadenaHotelera {
   public Stream<Reserva> buscarReservasDelCliente(Hotel hotel, Cliente cliente) {
     return hotel.listarReservas().filter(r -> r.getCliente().equals(cliente));
 
+  }
+
+  public Reserva seleccionarReserva(long codigo) {
+    for (Hotel hotel : hoteles.values()) {
+      Optional<Reserva> opt =
+          hotel.listarReservas().filter(r -> r.getCodigo() == codigo).findFirst();
+      if (opt.isPresent()) {
+        return opt.get();
+      }
+    }
+    return null;
   }
 
 }
