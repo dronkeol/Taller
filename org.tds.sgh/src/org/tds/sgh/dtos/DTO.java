@@ -75,6 +75,8 @@ public class DTO {
   }
 
   public ReservaDTO map(Reserva reserva) {
+    int largo = reserva.getHuespedes().size();
+
     return new ReservaDTO(reserva.getCodigo(), reserva.getCliente().getRut(), reserva.getHotel()
         .getNombre(), reserva.getTipoHabitacion().getNombre(), reserva.getFechaInicio(),
         reserva.getFechaFin(), reserva.isModificablePorHuesped(), reserva.getEstado().toString(),

@@ -80,16 +80,17 @@ public class TomarReservaController extends ModificarReservaController implement
     } catch (Exception e) {
       e.printStackTrace();
     }
-    Reserva r =
+    this.reserva =
         h.registrarReserva(super.getCliente(), th, fechaInicio, fechaFin, modificablePorHuesped);
 
     Infrastructure.getInstance().getSistemaMensajeria()
         .enviarMail(super.getCliente().getMail(), "Reserva agendada.", "Reserva agendada OK.");
-    return DTO.getInstance().map(r);
+    return DTO.getInstance().map(this.reserva);
   }
 
   public ReservaDTO seleccionarReserva(long codigo) {
-    return DTO.getInstance().map(super.getCadenaHotelera().seleccionarReserva(codigo));
+    this.reserva = super.getCadenaHotelera().seleccionarReserva(codigo);
+    return DTO.getInstance().map(reserva);
   }
 
 }
