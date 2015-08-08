@@ -1,5 +1,6 @@
 package org.tds.sgh.system;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -23,7 +24,15 @@ public class TomarReservaController implements ITomarReservaController {
 
 
   public List<ReservaDTO> buscarReservasPendientes(String nombreHotel) {
-    throw new UnsupportedOperationException();
+		Hotel hotel;
+
+		try {
+			hotel = this.cadenaHotelera.buscarHotel(nombreHotel);
+		} catch (Exception e) {
+			return new ArrayList<ReservaDTO>();
+		}
+
+		return DTO.getInstance().mapReservas(hotel.listarReservas().filter(p -> p.isPendiente()));
   }
 
   public ReservaDTO registrarHuesped(String ombre, String documento) {
