@@ -40,6 +40,10 @@ public class Hotel {
     return pais;
   }
 
+  private void dumb() {
+
+  }
+
 
   // Operations (public) ------------------------------------------------------------------------
 
@@ -62,8 +66,8 @@ public class Hotel {
   public Stream<Reserva> listarReservas() {
     return reservas.values().stream();
   }
-  
+
   public void registrarReserva(Reserva r) {
-		this.reservas.put(r.getCodigo(),r) ;
-	}
+    this.reservas.put(r.getCodigo(), r);
+  }
 }
