@@ -21,17 +21,15 @@ public class TomarReservaController extends ModificarReservaController implement
 
   private Cliente cliente;
 
-  private CadenaHotelera cadenaHotelera;
-
   public TomarReservaController(CadenaHotelera cadenaHotelera) {
-    this.cadenaHotelera = cadenaHotelera;
+    super(cadenaHotelera);
   }
 
   public List<ReservaDTO> buscarReservasPendientes(String nombreHotel) {
     Hotel hotel;
 
     try {
-      hotel = this.cadenaHotelera.buscarHotel(nombreHotel);
+      hotel = super.getCadenaHotelera().buscarHotel(nombreHotel);
     } catch (Exception e) {
       return new ArrayList<ReservaDTO>();
     }
@@ -56,23 +54,13 @@ public class TomarReservaController extends ModificarReservaController implement
 
     Cliente cliente = null;
     try {
-      cliente = cadenaHotelera.agregarCliente(rut, nombre, direccion, telefono, mail);
+      cliente = super.getCadenaHotelera().agregarCliente(rut, nombre, direccion, telefono, mail);
     } catch (Exception e) {
       e.printStackTrace();
     }
     this.cliente = cliente;
     return DTO.getInstance().map(cliente);
   }
-
-  public CadenaHotelera getCadenaHotelera() {
-    return cadenaHotelera;
-  }
-
-
-  public void setCadenaHotelera(CadenaHotelera cadenaHotelera) {
-    this.cadenaHotelera = cadenaHotelera;
-  }
-
 
   public Reserva getReserva() {
     return reserva;
@@ -97,8 +85,8 @@ public class TomarReservaController extends ModificarReservaController implement
     Hotel h = null;
     TipoHabitacion th = null;
     try {
-      h = this.cadenaHotelera.buscarHotel(nombreHotel);
-      th = this.cadenaHotelera.buscarTipoHabitacion(nombreTipoHabitacion);
+      h = super.getCadenaHotelera().buscarHotel(nombreHotel);
+      th = super.getCadenaHotelera().buscarTipoHabitacion(nombreTipoHabitacion);
     } catch (Exception e) {
       e.printStackTrace();
     }

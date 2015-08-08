@@ -10,29 +10,34 @@ import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
 
-public class ModificarReservaController implements IModificarReservaController {
-
-  private CadenaHotelera cadenaHotelera;
+public class ModificarReservaController extends IdentificarReservasClienteController implements
+    IModificarReservaController {
 
   private Cliente cliente;
+
+  public ModificarReservaController(CadenaHotelera cadenaHotelera) {
+    super(cadenaHotelera);
+  }
 
 
   @Override
   public List<HotelDTO> sugerirAlternativas(String pais, String nombreTipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
     return DTO.getInstance().mapHoteles(
-        this.cadenaHotelera.sugerirAlternativas(pais, nombreTipoHabitacion, fechaInicio, fechaFin));
+        super.getCadenaHotelera().sugerirAlternativas(pais, nombreTipoHabitacion, fechaInicio,
+            fechaFin));
   }
 
   @Override
   public List<ClienteDTO> buscarCliente(String patronNombreCliente) {
-    return DTO.getInstance().mapClientes(cadenaHotelera.buscarClientes(patronNombreCliente));
+    return DTO.getInstance().mapClientes(
+        super.getCadenaHotelera().buscarClientes(patronNombreCliente));
   }
 
   public ClienteDTO seleccionarCliente(String rut) {
     Cliente cliente = null;
     try {
-      cliente = cadenaHotelera.buscarCliente(rut);
+      cliente = super.getCadenaHotelera().buscarCliente(rut);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -53,8 +58,8 @@ public class ModificarReservaController implements IModificarReservaController {
   @Override
   public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
-    return cadenaHotelera.confirmaDisponibilidad(nombreHotel, nombreTipoHabitacion, fechaInicio,
-        fechaFin);
+    return super.getCadenaHotelera().confirmaDisponibilidad(nombreHotel, nombreTipoHabitacion,
+        fechaInicio, fechaFin);
   }
 
   @Override
