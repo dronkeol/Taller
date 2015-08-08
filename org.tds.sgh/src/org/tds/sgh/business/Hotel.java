@@ -15,7 +15,9 @@ public class Hotel {
 
   private Map<Integer, Reserva> reservas;
 
+  private void dumb() {
 
+  }
 
   // Constructors (public) ----------------------------------------------------------------------
 
