@@ -186,4 +186,9 @@ public class CadenaHotelera {
                 fechaFin));
   }
 
+  public Stream<Reserva> buscarReservasDelCliente(Hotel hotel, Cliente cliente) {
+    return hotel.listarReservas().filter(r -> r.getCliente().equals(cliente));
+
+  }
+
 }
