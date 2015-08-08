@@ -63,8 +63,9 @@ public class TomarReservaController implements ITomarReservaController {
 
   public boolean confirmaDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
       java.util.Date fechaInicio, java.util.Date fechaFin) {
-    // TODO - implement HacerReservaController.confirmaDisponibilidad
-    throw new UnsupportedOperationException();
+
+    return cadenaHotelera.confirmaDisponibilidad(nombreHotel, nombreTipoHabitacion, fechaInicio,
+        fechaFin);
   }
 
   public Reserva registrarReserva(String nombreHotel, String nombreTipoHabitacio, Date fechaInicio,
