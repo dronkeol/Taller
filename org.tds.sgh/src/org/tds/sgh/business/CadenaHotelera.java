@@ -1,5 +1,6 @@
 package org.tds.sgh.business;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -140,6 +141,57 @@ public class CadenaHotelera {
     long countHabitaciones = lstHabitaciones.count();
 
     Stream<Reserva> lstReservas =
+        oHotel.listarReservas().filter(p ->
+          {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM dd"); // lowercase "dd"
+
+            boolean equalsTipoHabitacion =
+                p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
+
+            boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
+
+            System.out.println(formatter.format(fechaFin.getTime()));
+            System.out.println(formatter.format(p.getFechaInicio().getTime()));
+            boolean fechaFinAnterior =
+                Infrastructure.getInstance().getCalendario()
+                    .esAnterior(fechaFin, p.getFechaInicio());
+
+            System.out.println("**");
+            System.out.println(formatter.format(fechaInicio.getTime()));
+            System.out.println(formatter.format(p.getFechaFin().getTime()));
+            boolean fechaInicioPosterior =
+                Infrastructure.getInstance().getCalendario()
+                    .esPosterior(fechaInicio, p.getFechaFin());
+
+            return equalsTipoHabitacion && isPendiente
+                && !(fechaFinAnterior && fechaInicioPosterior);
+
+          }
+
+
+
+        );
+    long countReservas = lstReservas.count();
+    return countHabitaciones > countReservas;
+  }
+
+  public boolean sugerirAlternativas(String pais, String nombreHotel, String nombreTipoHabitacion,
+      GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+
+
+    Hotel oHotel = null;
+    try {
+      oHotel = this.buscarHotel(nombreHotel);
+    } catch (Exception e) {
+      return false;
+    }
+
+    Stream<Habitacion> lstHabitaciones =
+        oHotel.listarHabitaciones().filter(
+            h -> h.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion));
+    long countHabitaciones = lstHabitaciones.count();
+
+    Stream<Reserva> lstReservas =
         oHotel.listarReservas().filter(
             p ->
               {
@@ -162,55 +214,9 @@ public class CadenaHotelera {
 
               }
 
-
-
         );
     long countReservas = lstReservas.count();
     return countHabitaciones > countReservas;
   }
-  
-  public boolean sugerirAlternativas(String pais, String nombreHotel, String nombreTipoHabitacion,
-	      GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
-
-
-	    Hotel oHotel = null;
-	    try {
-	      oHotel = this.buscarHotel(nombreHotel);
-	    } catch (Exception e) {
-	      return false;
-	    }
-
-	    Stream<Habitacion> lstHabitaciones =
-	        oHotel.listarHabitaciones().filter(
-	            h -> h.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion));
-	    long countHabitaciones = lstHabitaciones.count();
-
-	    Stream<Reserva> lstReservas =
-	        oHotel.listarReservas().filter(
-	            p ->
-	              {
-
-	                boolean equalsTipoHabitacion =
-	                    p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
-
-	                System.out.println("1");
-	                boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
-	                System.out.println("2");
-	                boolean fechaInicioMayor =
-	                    Infrastructure.getInstance().getCalendario()
-	                        .esPosterior(p.getFechaInicio(), fechaInicio);
-	                System.out.println("3");
-	                boolean fechaFinMenor =
-	                    Infrastructure.getInstance().getCalendario()
-	                        .esAnterior(p.getFechaFin(), fechaFin);
-	                System.out.println("4");
-	                return equalsTipoHabitacion && isPendiente && fechaInicioMayor && fechaFinMenor;
-
-	              }
-
-	        );
-	    long countReservas = lstReservas.count();
-	    return countHabitaciones > countReservas;
-	  }  
 
 }
