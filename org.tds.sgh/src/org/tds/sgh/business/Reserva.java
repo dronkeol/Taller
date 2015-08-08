@@ -20,8 +20,7 @@ public class Reserva {
   private Habitacion habitacion;
 
   public boolean isPendiente() {
-    throw new UnsupportedOperationException();
-
+    return EstadoReserva.Pendiente.equals(estado);
   }
 
   public Reserva(Hotel hotel, Cliente cliente, TipoHabitacion tipoHabitacion,
