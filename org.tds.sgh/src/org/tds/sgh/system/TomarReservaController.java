@@ -7,6 +7,7 @@ import java.util.List;
 import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.business.Cliente;
 import org.tds.sgh.business.Hotel;
+import org.tds.sgh.business.Huesped;
 import org.tds.sgh.business.Reserva;
 import org.tds.sgh.business.TipoHabitacion;
 import org.tds.sgh.dtos.ClienteDTO;
@@ -37,7 +38,7 @@ public class TomarReservaController implements ITomarReservaController {
   }
 
   public ReservaDTO registrarHuesped(String ombre, String documento) {
-    throw new UnsupportedOperationException();
+	  return DTO.getInstance().map(reserva.registrarHuesped(ombre, documento));
   }
 
   public ReservaDTO tomarReserva() {

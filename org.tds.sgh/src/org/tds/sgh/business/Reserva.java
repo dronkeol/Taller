@@ -48,8 +48,12 @@ public class Reserva {
     throw new UnsupportedOperationException();
   }
 
-  public void registrarHuesped(String nombre, String documento) {
-    throw new UnsupportedOperationException();
+  public Reserva registrarHuesped(String nombre, String documento) {
+	  Huesped huesped = new Huesped();
+	  huesped.setDocumento(documento);
+	  huesped.setNombre(nombre);
+	  this.huespedes.add(huesped);
+    return this;
   }
 
   public int getCodigo() {
