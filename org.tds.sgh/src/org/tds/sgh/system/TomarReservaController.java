@@ -114,6 +114,7 @@ public class TomarReservaController implements ITomarReservaController {
 
   @Override
   public List<ClienteDTO> buscarCliente(String patronNombreCliente) {
+	  
 	  return DTO.getInstance().mapClientes(cadenaHotelera.buscarClientes(patronNombreCliente));
   }
 
