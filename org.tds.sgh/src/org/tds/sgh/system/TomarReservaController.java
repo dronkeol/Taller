@@ -17,7 +17,7 @@ import org.tds.sgh.infrastructure.Infrastructure;
 public class TomarReservaController extends ModificarReservaController implements
     ITomarReservaController {
 
-  private Reserva reserva;
+  //private Reserva reserva;
 
   public TomarReservaController(CadenaHotelera cadenaHotelera) {
     super(cadenaHotelera);
@@ -36,12 +36,15 @@ public class TomarReservaController extends ModificarReservaController implement
   }
 
   public ReservaDTO registrarHuesped(String ombre, String documento) {
-	reserva = reserva.registrarHuesped(ombre, documento);
+	Reserva reserva = super.getReserva().registrarHuesped(ombre, documento);
     return DTO.getInstance().map(reserva);
   }
 
   public ReservaDTO tomarReserva() {
-    throw new UnsupportedOperationException();
+	  super.getReserva().getHotel().tomarReserva(super.getReserva());
+	  Infrastructure.getInstance().getSistemaMensajeria().enviarMail(super.getReserva().getCliente().getMail(), "", "");
+	  Infrastructure.getInstance().getSistemaFacturacion().iniciarEstadia(DTO.getInstance().map(super.getReserva()));
+	  return DTO.getInstance().map(super.getReserva());
   }
 
   public ClienteDTO buscarClientePorPatron(String rut) {
@@ -61,13 +64,7 @@ public class TomarReservaController extends ModificarReservaController implement
     return DTO.getInstance().map(cliente);
   }
 
-  public Reserva getReserva() {
-    return reserva;
-  }
-
-  public void setReserva(Reserva reserva) {
-    this.reserva = reserva;
-  }
+ 
 
   @Override
   public ReservaDTO registrarReserva(String nombreHotel, String nombreTipoHabitacion,
@@ -75,22 +72,25 @@ public class TomarReservaController extends ModificarReservaController implement
       throws Exception {
     Hotel h = null;
     TipoHabitacion th = null;
+    Reserva reserva = null;
     try {
       h = super.getCadenaHotelera().buscarHotel(nombreHotel);
       th = super.getCadenaHotelera().buscarTipoHabitacion(nombreTipoHabitacion);
     } catch (Exception e) {
       e.printStackTrace();
     }
-    this.reserva =
+    reserva =
         h.registrarReserva(super.getCliente(), th, fechaInicio, fechaFin, modificablePorHuesped);
 
     Infrastructure.getInstance().getSistemaMensajeria()
         .enviarMail(super.getCliente().getMail(), "Reserva agendada.", "Reserva agendada OK.");
-    return DTO.getInstance().map(this.reserva);
+    super.setReserva(reserva);
+    return DTO.getInstance().map(reserva);
   }
 
   public ReservaDTO seleccionarReserva(long codigo) {
-    this.reserva = super.getCadenaHotelera().seleccionarReserva(codigo);
+    Reserva reserva = super.getCadenaHotelera().seleccionarReserva(codigo);
+    super.setReserva(reserva);
     return DTO.getInstance().map(reserva);
   }
 

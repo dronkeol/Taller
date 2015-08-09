@@ -1,9 +1,15 @@
 package org.tds.sgh.business;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+
+import org.tds.sgh.dtos.DTO;
+import org.tds.sgh.dtos.ReservaDTO;
+import org.tds.sgh.infrastructure.Infrastructure;
 
 public class Hotel {
   // Attributes (private) -----------------------------------------------------------------------
@@ -71,5 +77,53 @@ public class Hotel {
     }
     this.reservas.put(r.getCodigo(), r);
     return r;
+  }
+  
+  public void tomarReserva(Reserva reserva){
+	 List<Habitacion> lstHabitaciones = new ArrayList<Habitacion>();
+	 
+	 for(Habitacion hab : habitaciones.values()){
+		 if(hab.getTipoHabitacion().getNombre().equals(reserva.getTipoHabitacion().getNombre()))
+			 lstHabitaciones.add(hab);
+	 }
+	 
+	 for (Reserva r : reservas.values()) {
+		 {
+	            //SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM dd"); // lowercase "dd"
+
+	            boolean equalsTipoHabitacion =
+	                r.getTipoHabitacion().getNombre().equals(reserva.getTipoHabitacion().getNombre());
+
+	           // boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
+
+	            //System.out.println(formatter.format(fechaFin.getTime()));
+	            //System.out.println(formatter.format(p.getFechaInicio().getTime()));
+	            boolean fechaFinAnterior =
+	                Infrastructure.getInstance().getCalendario()
+	                    .esAnterior(reserva.getFechaFin(), r.getFechaInicio());
+
+	            //System.out.println("**");
+	            //System.out.println(formatter.format(fechaInicio.getTime()));
+	            //System.out.println(formatter.format(p.getFechaFin().getTime()));
+	            boolean fechaInicioPosterior =
+	                Infrastructure.getInstance().getCalendario()
+	                    .esPosterior(reserva.getFechaInicio(), r.getFechaFin());
+
+	            
+	            if(equalsTipoHabitacion
+	                && !(fechaFinAnterior && fechaInicioPosterior)){
+	            	 if(r.getHabitacion()!=null)
+	            		 lstHabitaciones.remove(r.getHabitacion());
+	            }
+
+	          }   
+		 
+	 }
+	 
+	 if(lstHabitaciones.size()>0){
+		 reserva.setHabitacion(lstHabitaciones.get(0));
+		 reserva.setEstado(EstadoReserva.Tomada);
+		 //reserva.setModificablePorHuesped(false);
+	 }
   }
 }

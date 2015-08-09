@@ -188,7 +188,7 @@ public class TomarReservaTest extends TestBase
 	
 	// curso alternativo con identificar reserva cliente ......................
 	
-/*	@Test
+	@Test
 	public void TomarReservaCursoAlternativoConIdentificarReservaCliente() throws Exception
 	{
 		ClienteDTO cliente1 = generarClienteConNombre("Fulanito");
@@ -503,5 +503,5 @@ public class TomarReservaTest extends TestBase
 		
 		assertTrue("La reserva que recibi� el sistema de facturaci�n no coincide con la reserva tomada.",
 				   reserva4.equals(sistemaFacturacion.getReservas().get(0)));
-	}*/
+	}
 }

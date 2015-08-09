@@ -137,4 +137,8 @@ public class Reserva {
   public void setHotel(Hotel hotel) {
     this.hotel = hotel;
   }
+  
+  public void tomarReserva(){
+	  
+  }
 }

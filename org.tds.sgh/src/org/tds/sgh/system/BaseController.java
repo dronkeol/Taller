@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.tds.sgh.business.CadenaHotelera;
 import org.tds.sgh.business.Cliente;
+import org.tds.sgh.business.Reserva;
 import org.tds.sgh.dtos.ClienteDTO;
 import org.tds.sgh.dtos.DTO;
 
@@ -11,6 +12,7 @@ public class BaseController {
 
   private CadenaHotelera cadenaHotelera;
   private Cliente cliente;
+  private Reserva reserva;
 
   public BaseController(CadenaHotelera cadenaHotelera) {
     this.cadenaHotelera = cadenaHotelera;
@@ -48,5 +50,12 @@ public class BaseController {
     return DTO.getInstance().map(cliente);
   }
 
+  public Reserva getReserva() {
+	    return reserva;
+	  }
+
+	  public void setReserva(Reserva reserva) {
+	    this.reserva = reserva;
+	  }
 
 }

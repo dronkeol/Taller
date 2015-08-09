@@ -2,8 +2,11 @@ package org.tds.sgh.system;
 
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.tds.sgh.business.CadenaHotelera;
+import org.tds.sgh.business.Hotel;
+import org.tds.sgh.business.Reserva;
 import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
@@ -25,13 +28,16 @@ public class ModificarReservaController extends BaseController implements
   }
 
   public List<ReservaDTO> buscarReservasDelCliente() {
-    throw new UnsupportedOperationException();
+	  return DTO.getInstance().mapReservas(super.getCadenaHotelera().
+			  buscarReservasDelCliente(super.getReserva().getHotel(), super.getCliente()));
+    
   }
 
   @Override
   public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
-    // TODO Auto-generated method stub
-    return null;
+	 
+	  return DTO.getInstance().map(super.getCadenaHotelera().seleccionarReserva(codigoReserva));
+		  
   }
 
   @Override
