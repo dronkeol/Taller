@@ -182,11 +182,13 @@ public class CadenaHotelera {
 	}
 
 	public Stream<Reserva> buscarReservasDelCliente(Cliente cliente) {
+		GregorianCalendar hoy = Infrastructure.getInstance().getCalendario().getHoy();
 		List<Reserva> reservasDelCliente = new ArrayList<Reserva>();
 		for (Hotel hotel : this.hoteles.values()) {
 			List<Reserva> reservas = hotel.listarReservas().collect(Collectors.toList());
 			for (Reserva reserva : reservas) {
-				if (reserva.getCliente().equals(cliente)) {
+				if (reserva.getCliente().equals(cliente)
+						&& Infrastructure.getInstance().getCalendario().esPosterior(reserva.getFechaFin(),hoy)) {
 					reservasDelCliente.add(reserva);
 				}
 			}
