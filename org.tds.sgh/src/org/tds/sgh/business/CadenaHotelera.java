@@ -1,10 +1,13 @@
 package org.tds.sgh.business;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.tds.sgh.infrastructure.Infrastructure;
@@ -187,9 +190,22 @@ public class CadenaHotelera {
                 fechaFin));
   }
 
-  public Stream<Reserva> buscarReservasDelCliente(Hotel hotel, Cliente cliente) {
-    return hotel.listarReservas().filter(r -> r.getCliente().equals(cliente));
-
+//  public Stream<Reserva> buscarReservasDelCliente(Hotel hotel, Cliente cliente) {
+//    return hotel.listarReservas().filter(r -> r.getCliente().equals(cliente));
+//
+//  }
+  
+  public Stream<Reserva> buscarReservasDelCliente(Cliente cliente) {
+	  List<Reserva> reservasDelCliente= new ArrayList<Reserva>();
+	  for (Hotel hotel: this.hoteles.values()){
+		List<Reserva> reservas = hotel.listarReservas().collect(Collectors.toList()); 
+		for (Reserva reserva:reservas){
+			if (reserva.getCliente().equals(cliente)){
+				reservasDelCliente.add(reserva);
+			}
+		}
+	  }
+	  return reservasDelCliente.stream();
   }
 
   public Reserva seleccionarReserva(long codigo) {
