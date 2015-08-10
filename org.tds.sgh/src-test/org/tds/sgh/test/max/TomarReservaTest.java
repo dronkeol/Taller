@@ -98,7 +98,7 @@ public class TomarReservaTest extends TestBase
 		
 		List<ReservaDTO> reservas = tomarReservaController.buscarReservasPendientes(hotel1);
 		
-		assertTrue("La única reserva pendiente del hotel debe ser la reserva registrada.",
+		assertTrue("La ï¿½nica reserva pendiente del hotel debe ser la reserva registrada.",
 				   reservas != null && reservas.size() == 1 && reserva.equals(reservas.get(0)));
 		
 		
@@ -109,7 +109,7 @@ public class TomarReservaTest extends TestBase
 		
 		disponibilidad = tomarReservaController.confirmarDisponibilidad(hotel1, tipoHabitacion1, fecha1, fecha3);
 		
-		assertTrue("Debe haber disponibilidad ya que hay una sola habitación y una sola reserva (la que está siendo modificada).",
+		assertTrue("Debe haber disponibilidad ya que hay una sola habitaciï¿½n y una sola reserva (la que estï¿½ siendo modificada).",
 				   disponibilidad);
 		
 		ReservaDTO reservaY = tomarReservaController.modificarReserva(hotel1, tipoHabitacion1, fecha1, fecha3, true);
@@ -145,7 +145,7 @@ public class TomarReservaTest extends TestBase
 			huesped1
 		);
 		
-		assertTrue("La reserva debe registrar el huésped.",
+		assertTrue("La reserva debe registrar el huï¿½sped.",
 				   reserva3.equals(reservaZ1));
 		
 		
@@ -165,7 +165,7 @@ public class TomarReservaTest extends TestBase
 			huesped2
 		);
 		
-		assertTrue("La reserva debe registrar el huésped.",
+		assertTrue("La reserva debe registrar el huï¿½sped.",
 				   reserva4.equals(reservaZ2));
 		
 		
@@ -198,13 +198,13 @@ public class TomarReservaTest extends TestBase
 				   mails.stream().allMatch(mail -> mail.getDestinatario().equals(cliente1.getMail())));
 
 		
-		assertTrue("El sistema de facturación no recibió la notificación de que se tomó una reserva.",
+		assertTrue("El sistema de facturaciï¿½n no recibiï¿½ la notificaciï¿½n de que se tomï¿½ una reserva.",
 				   !sistemaFacturacion.getReservas().isEmpty());
 		
-		assertTrue("El sistema de facturación recibió más de una notificación de que se tomó una reserva.",
+		assertTrue("El sistema de facturaciï¿½n recibiï¿½ mï¿½s de una notificaciï¿½n de que se tomï¿½ una reserva.",
 				   sistemaFacturacion.getReservas().size() == 1);
 		
-		assertTrue("La reserva que recibió el sistema de facturación no coincide con la reserva tomada.",
+		assertTrue("La reserva que recibiï¿½ el sistema de facturaciï¿½n no coincide con la reserva tomada.",
 				   reserva5.equals(sistemaFacturacion.getReservas().get(0)));
 	}
 	
@@ -258,7 +258,7 @@ public class TomarReservaTest extends TestBase
 				   disponibilidad);
 		
 		
-		// reserva no modificable por huésped
+		// reserva no modificable por huï¿½sped
 		ReservaDTO reservaX = hacerReservaController.registrarReserva(hotel1, tipoHabitacion1, fecha1, fecha2, false);
 		
 		ReservaDTO reserva = new ReservaDTO(
@@ -282,7 +282,7 @@ public class TomarReservaTest extends TestBase
 		
 		List<ReservaDTO> reservas = tomarReservaController.buscarReservasPendientes(hotel1);
 		
-		assertTrue("La única reserva pendiente del hotel debe ser la reserva registrada.",
+		assertTrue("La ï¿½nica reserva pendiente del hotel debe ser la reserva registrada.",
 				   reservas != null && reservas.size() == 1 && reserva.equals(reservas.get(0)));
 		
 		
@@ -294,10 +294,10 @@ public class TomarReservaTest extends TestBase
 		
 		disponibilidad = tomarReservaController.confirmarDisponibilidad(hotel1, tipoHabitacion1, fecha1, fecha3);
 		
-		assertTrue("Debe haber disponibilidad ya que hay una sola habitación y una sola reserva (la que está siendo modificada).",
+		assertTrue("Debe haber disponibilidad ya que hay una sola habitaciï¿½n y una sola reserva (la que estï¿½ siendo modificada).",
 				   disponibilidad);
 		
-		// debe fallar ya que se intenta modificar una reserva que no es modificable por el huésped
+		// debe fallar ya que se intenta modificar una reserva que no es modificable por el huï¿½sped
 		tomarReservaController.modificarReserva(hotel1, tipoHabitacion1, fecha1, fecha3, true);
 	}
 }

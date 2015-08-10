@@ -39,13 +39,8 @@ public class BaseController {
         this.getCadenaHotelera().buscarClientes(patronNombreCliente));
   }
 
-  public ClienteDTO seleccionarCliente(String rut) {
-    Cliente cliente = null;
-    try {
-      cliente = this.getCadenaHotelera().buscarCliente(rut);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public ClienteDTO seleccionarCliente(String rut)throws Exception {
+    Cliente cliente = this.getCadenaHotelera().buscarCliente(rut);
     this.cliente = cliente;
     return DTO.getInstance().map(cliente);
   }
