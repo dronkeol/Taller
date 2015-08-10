@@ -218,8 +218,18 @@ public class CadenaHotelera {
 		return reserva;
 	}
 
-	public Reserva cancelarReserva(Reserva reserva) {
-		return reserva.cancelarReserva(reserva);
+	public Reserva cancelarReserva(Reserva reserva){
+		Reserva reservaMod = reserva.cancelarReserva(reserva);
+
+		for (String key : hoteles.keySet()) {
+		    if(reservaMod.getHotel().getNombre().equals(key)){
+		    	Hotel h = hoteles.get(key);
+		    	Map<Integer, Reserva> r = h.getReservasMap();
+		    	r.remove(reserva.getCodigo());
+		    }
+		}
+		
+		return reservaMod;
 	}
 
 }
