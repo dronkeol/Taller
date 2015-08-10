@@ -17,8 +17,6 @@ import org.tds.sgh.infrastructure.Infrastructure;
 public class TomarReservaController extends ModificarReservaController implements
     ITomarReservaController {
 
-  //private Reserva reserva;
-
   public TomarReservaController(CadenaHotelera cadenaHotelera) {
     super(cadenaHotelera);
   }

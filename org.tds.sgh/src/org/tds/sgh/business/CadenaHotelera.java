@@ -13,210 +13,206 @@ import java.util.stream.Stream;
 import org.tds.sgh.infrastructure.Infrastructure;
 
 public class CadenaHotelera {
-  // Attributes (private) -----------------------------------------------------------------------
+	// Attributes (private)
+	// -----------------------------------------------------------------------
 
-  private String nombre;
+	private String nombre;
 
-  private Map<String, Cliente> clientes;
+	private Map<String, Cliente> clientes;
 
-  private Map<String, Hotel> hoteles;
+	private Map<String, Hotel> hoteles;
 
-  private Map<String, TipoHabitacion> tiposHabitacion;
+	private Map<String, TipoHabitacion> tiposHabitacion;
 
+	// Constructors (public)
+	// ----------------------------------------------------------------------
 
-  // Constructors (public) ----------------------------------------------------------------------
+	public CadenaHotelera(String nombre) {
+		this.nombre = nombre;
 
-  public CadenaHotelera(String nombre) {
-    this.nombre = nombre;
+		this.clientes = new HashMap<String, Cliente>();
 
-    this.clientes = new HashMap<String, Cliente>();
+		this.hoteles = new HashMap<String, Hotel>();
 
-    this.hoteles = new HashMap<String, Hotel>();
+		this.tiposHabitacion = new HashMap<String, TipoHabitacion>();
+	}
 
-    this.tiposHabitacion = new HashMap<String, TipoHabitacion>();
-  }
+	// Properties (public)
+	// ------------------------------------------------------------------------
 
+	public String getNombre() {
+		return nombre;
+	}
 
-  // Properties (public) ------------------------------------------------------------------------
+	// Operations (public)
+	// ------------------------------------------------------------------------
 
-  public String getNombre() {
-    return nombre;
-  }
+	public Cliente agregarCliente(String rut, String nombre, String direccion, String telefono, String mail)
+			throws Exception {
+		if (clientes.containsKey(rut))
+			throw new Exception("Ya existe un cliente con el RUT indicado.");
 
+		Cliente cliente = new Cliente(rut, nombre, direccion, telefono, mail);
 
-  // Operations (public) ------------------------------------------------------------------------
+		clientes.put(cliente.getRut(), cliente);
 
-  public Cliente agregarCliente(String rut, String nombre, String direccion, String telefono,
-      String mail) throws Exception {
-    if (clientes.containsKey(rut))
-      throw new Exception("Ya existe un cliente con el RUT indicado.");
+		return cliente;
+	}
 
-    Cliente cliente = new Cliente(rut, nombre, direccion, telefono, mail);
+	public Cliente buscarCliente(String rut) throws Exception {
+		Cliente cliente = clientes.get(rut);
 
-    clientes.put(cliente.getRut(), cliente);
+		if (cliente == null)
+			throw new Exception("No existe un cliente con el nombre indicado.");
 
-    return cliente;
-  }
+		return cliente;
+	}
 
-  public Cliente buscarCliente(String rut) throws Exception {
-    Cliente cliente = clientes.get(rut);
+	public Stream<Cliente> buscarClientes(String patronNombreCliente) {
+		return clientes.values().stream().filter(cliente -> cliente.getNombre().matches(patronNombreCliente));
+	}
 
-    if (cliente == null)
-      throw new Exception("No existe un cliente con el nombre indicado.");
+	public Stream<Cliente> listarClientes() {
+		return clientes.values().stream();
+	}
 
-    return cliente;
-  }
+	public Hotel agregarHotel(String nombre, String pais) throws Exception {
+		if (hoteles.containsKey(nombre))
+			throw new Exception("Ya existe un hotel con el nombre indicado.");
 
-  public Stream<Cliente> buscarClientes(String patronNombreCliente) {
-    return clientes.values().stream()
-        .filter(cliente -> cliente.getNombre().matches(patronNombreCliente));
-  }
+		Hotel hotel = new Hotel(nombre, pais);
 
-  public Stream<Cliente> listarClientes() {
-    return clientes.values().stream();
-  }
+		hoteles.put(hotel.getNombre(), hotel);
 
-  public Hotel agregarHotel(String nombre, String pais) throws Exception {
-    if (hoteles.containsKey(nombre))
-      throw new Exception("Ya existe un hotel con el nombre indicado.");
+		return hotel;
+	}
 
-    Hotel hotel = new Hotel(nombre, pais);
+	public Hotel buscarHotel(String nombre) throws Exception {
+		Hotel hotel = hoteles.get(nombre);
 
-    hoteles.put(hotel.getNombre(), hotel);
+		if (hotel == null)
+			throw new Exception("No existe un hotel con el nombre indicado.");
 
-    return hotel;
-  }
+		return hotel;
+	}
 
-  public Hotel buscarHotel(String nombre) throws Exception {
-    Hotel hotel = hoteles.get(nombre);
+	public Stream<Hotel> listarHoteles() {
+		return hoteles.values().stream();
+	}
 
-    if (hotel == null)
-      throw new Exception("No existe un hotel con el nombre indicado.");
+	public TipoHabitacion agregarTipoHabitacion(String nombre) throws Exception {
+		if (tiposHabitacion.containsKey(nombre))
+			throw new Exception("Ya existe un tipo de habitaci�n con el nombre indicado.");
 
-    return hotel;
-  }
+		TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
 
-  public Stream<Hotel> listarHoteles() {
-    return hoteles.values().stream();
-  }
+		tiposHabitacion.put(tipoHabitacion.getNombre(), tipoHabitacion);
 
-  public TipoHabitacion agregarTipoHabitacion(String nombre) throws Exception {
-    if (tiposHabitacion.containsKey(nombre))
-      throw new Exception("Ya existe un tipo de habitaci�n con el nombre indicado.");
+		return tipoHabitacion;
+	}
 
-    TipoHabitacion tipoHabitacion = new TipoHabitacion(nombre);
+	public TipoHabitacion buscarTipoHabitacion(String nombre) throws Exception {
+		TipoHabitacion tipoHabitacion = tiposHabitacion.get(nombre);
 
-    tiposHabitacion.put(tipoHabitacion.getNombre(), tipoHabitacion);
+		if (tipoHabitacion == null)
+			throw new Exception("No existe un tipo de habitaci�n con el nombre indicado.");
 
-    return tipoHabitacion;
-  }
+		return tipoHabitacion;
+	}
 
-  public TipoHabitacion buscarTipoHabitacion(String nombre) throws Exception {
-    TipoHabitacion tipoHabitacion = tiposHabitacion.get(nombre);
+	public Stream<TipoHabitacion> listarTiposHabitacion() {
+		return tiposHabitacion.values().stream();
+	}
 
-    if (tipoHabitacion == null)
-      throw new Exception("No existe un tipo de habitaci�n con el nombre indicado.");
+	public void lala() {
 
-    return tipoHabitacion;
-  }
+	}
 
-  public Stream<TipoHabitacion> listarTiposHabitacion() {
-    return tiposHabitacion.values().stream();
-  }
+	public boolean confirmaDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
 
-  public void lala() {
+		Hotel oHotel = null;
+		try {
+			oHotel = this.buscarHotel(nombreHotel);
+		} catch (Exception e) {
+			return false;
+		}
 
-  }
+		Stream<Habitacion> lstHabitaciones = oHotel.listarHabitaciones()
+				.filter(h -> h.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion));
+		long countHabitaciones = lstHabitaciones.count();
 
-  public boolean confirmaDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
-      GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
+		System.out.println(nombreHotel + " - Confirmando disponibilidad entre: " + formatter.format(fechaInicio.getTime()) + "-"
+				+ formatter.format(fechaFin.getTime()));
 
+		long countReservas = 0;
+		if (oHotel.listarReservas().count() > 0) {
 
-    Hotel oHotel = null;
-    try {
-      oHotel = this.buscarHotel(nombreHotel);
-    } catch (Exception e) {
-      return false;
-    }
+			Stream<Reserva> lstReservas = oHotel.listarReservas().filter(p -> {
 
-    Stream<Habitacion> lstHabitaciones =
-        oHotel.listarHabitaciones().filter(
-            h -> h.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion));
-    long countHabitaciones = lstHabitaciones.count();
+				System.out.println(
+						"Evaluando reserva: " + formatter.format(p.getFechaInicio().getTime())
+								+ "-" + formatter.format(p.getFechaFin().getTime()));
+				boolean equalsTipoHabitacion = p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
 
-    Stream<Reserva> lstReservas =
-        oHotel.listarReservas().filter(p ->
-          {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM dd"); // lowercase "dd"
+				boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
 
-            boolean equalsTipoHabitacion =
-                p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
+				boolean fechaFinAntesFechaInicio = Infrastructure.getInstance().getCalendario().esAnterior(fechaFin,
+						p.getFechaInicio());
 
-            boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
+				boolean fechaInicioDespuesFechaFin = Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio,
+						p.getFechaFin());
+				
+				boolean colisionPeriodo = !(fechaFinAntesFechaInicio || fechaInicioDespuesFechaFin);
 
-            System.out.println(formatter.format(fechaFin.getTime()));
-            System.out.println(formatter.format(p.getFechaInicio().getTime()));
-            boolean fechaFinAnterior =
-                Infrastructure.getInstance().getCalendario()
-                    .esAnterior(fechaFin, p.getFechaInicio());
+				if (equalsTipoHabitacion && isPendiente && colisionPeriodo) {
+					System.out.println("Colision!!!");
+					return true;
+				} else {
+					return false;
+				}
+			}
 
-            System.out.println("**");
-            System.out.println(formatter.format(fechaInicio.getTime()));
-            System.out.println(formatter.format(p.getFechaFin().getTime()));
-            boolean fechaInicioPosterior =
-                Infrastructure.getInstance().getCalendario()
-                    .esPosterior(fechaInicio, p.getFechaFin());
+			);
+			countReservas = lstReservas.count();
+		}
+		return countHabitaciones > countReservas;
+	}
 
-            return equalsTipoHabitacion && isPendiente
-                && !(fechaFinAnterior && fechaInicioPosterior);
+	public Stream<Hotel> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
+			GregorianCalendar fechaFin) {
+		return this.hoteles.values().stream().filter(h -> h.getPais().equals(pais))
+				.filter(h -> this.confirmaDisponibilidad(h.getNombre(), nombreTipoHabitacion, fechaInicio, fechaFin));
+	}
 
-          }
-
-
-
-        );
-    long countReservas = lstReservas.count();
-    return countHabitaciones > countReservas;
-  }
-
-  public Stream<Hotel> sugerirAlternativas(String pais, String nombreTipoHabitacion,
-      GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
-    return this.hoteles
-        .values()
-        .stream()
-        .filter(h -> h.getPais().equals(pais))
-        .filter(
-            h -> this.confirmaDisponibilidad(h.getNombre(), nombreTipoHabitacion, fechaInicio,
-                fechaFin));
-  }
-
-//  public Stream<Reserva> buscarReservasDelCliente(Hotel hotel, Cliente cliente) {
-//    return hotel.listarReservas().filter(r -> r.getCliente().equals(cliente));
-//
-//  }
-  
-  public Stream<Reserva> buscarReservasDelCliente(Cliente cliente) {
-	  List<Reserva> reservasDelCliente= new ArrayList<Reserva>();
-	  for (Hotel hotel: this.hoteles.values()){
-		List<Reserva> reservas = hotel.listarReservas().collect(Collectors.toList()); 
-		for (Reserva reserva:reservas){
-			if (reserva.getCliente().equals(cliente)){
-				reservasDelCliente.add(reserva);
+	public Stream<Reserva> buscarReservasDelCliente(Cliente cliente) {
+		List<Reserva> reservasDelCliente = new ArrayList<Reserva>();
+		for (Hotel hotel : this.hoteles.values()) {
+			List<Reserva> reservas = hotel.listarReservas().collect(Collectors.toList());
+			for (Reserva reserva : reservas) {
+				if (reserva.getCliente().equals(cliente)) {
+					reservasDelCliente.add(reserva);
+				}
 			}
 		}
-	  }
-	  return reservasDelCliente.stream();
-  }
+		return reservasDelCliente.stream();
+	}
 
-  public Reserva seleccionarReserva(long codigo) {
-    for (Hotel hotel : hoteles.values()) {
-      Optional<Reserva> opt =
-          hotel.listarReservas().filter(r -> r.getCodigo() == codigo).findFirst();
-      if (opt.isPresent()) {
-        return opt.get();
-      }
-    }
-    return null;
-  }
+	public Reserva seleccionarReserva(long codigo) {
+		for (Hotel hotel : hoteles.values()) {
+			Optional<Reserva> opt = hotel.listarReservas().filter(r -> r.getCodigo() == codigo).findFirst();
+			if (opt.isPresent()) {
+				return opt.get();
+			}
+		}
+		return null;
+	}
+
+	public Reserva modificarReserva(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
+		return reserva.modificarReserva(this.hoteles.get(nombreHotel), this.tiposHabitacion.get(nombreTipoHabitacion),
+				fechaInicio, fechaFin, modificablePorHuesped);
+	}
 
 }

@@ -141,4 +141,13 @@ public class Reserva {
   public void tomarReserva(){
 	  
   }
+
+public Reserva modificarReserva(Hotel hotel, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio2, GregorianCalendar fechaFin2, boolean modificablePorHuesped2) {
+	this.setFechaInicio(fechaInicio);
+	this.setFechaFin(fechaFin);
+	this.setTipoHabitacion(tipoHabitacion);
+	this.setModificablePorHuesped(modificablePorHuesped);
+	this.setHotel(hotel);
+	return this;
+}
 }

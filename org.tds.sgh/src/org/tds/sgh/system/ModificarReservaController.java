@@ -2,14 +2,13 @@ package org.tds.sgh.system;
 
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Optional;
 
 import org.tds.sgh.business.CadenaHotelera;
-import org.tds.sgh.business.Hotel;
 import org.tds.sgh.business.Reserva;
 import org.tds.sgh.dtos.DTO;
 import org.tds.sgh.dtos.HotelDTO;
 import org.tds.sgh.dtos.ReservaDTO;
+import org.tds.sgh.infrastructure.Infrastructure;
 
 public class ModificarReservaController extends BaseController implements IModificarReservaController {
 
@@ -31,9 +30,9 @@ public class ModificarReservaController extends BaseController implements IModif
 
 	@Override
 	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
-
-		return DTO.getInstance().map(super.getCadenaHotelera().seleccionarReserva(codigoReserva));
-
+		Reserva reserva = super.getCadenaHotelera().seleccionarReserva(codigoReserva);
+		super.setReserva(reserva);
+		return DTO.getInstance().map(reserva);
 	}
 
 	@Override
@@ -46,8 +45,11 @@ public class ModificarReservaController extends BaseController implements IModif
 	@Override
 	public ReservaDTO modificarReserva(String nombreHotel, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Reserva reserva = super.getCadenaHotelera().modificarReserva(super.getReserva(), nombreHotel,
+				nombreTipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
+		Infrastructure.getInstance().getSistemaMensajeria().enviarMail(super.getReserva().getCliente().getMail(), "",
+				"");
+		return DTO.getInstance().map(reserva);
 	}
 
 }

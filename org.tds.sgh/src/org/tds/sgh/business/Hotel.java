@@ -1,5 +1,6 @@
 package org.tds.sgh.business;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -69,7 +70,10 @@ public class Hotel {
 
   public Reserva registrarReserva(Cliente cliente, TipoHabitacion tipoHabitacion,
       GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
-
+	
+	  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
+		System.out.println(this.nombre + " - Registrando reserva entre: " + formatter.format(fechaInicio.getTime()) + "-" +  formatter.format(fechaFin.getTime()));
+	
     Reserva r =
         new Reserva(this, cliente, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
     if (this.reservas == null) {

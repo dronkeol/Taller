@@ -30,8 +30,7 @@ public class ControllerFactory implements IControllerFactory {
 
   @Override
   public IModificarReservaController createModificarReservaController() {
-    // TODO
-    throw new NotImplementedException();
+    return new ModificarReservaController(cadenaHotelera);
   }
 
   @Override
