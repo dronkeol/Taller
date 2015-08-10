@@ -30,7 +30,7 @@ public class ModificarReservaController extends BaseController implements IModif
 
 	@Override
 	public ReservaDTO seleccionarReserva(long codigoReserva) throws Exception {
-		Reserva reserva = super.getCadenaHotelera().seleccionarReserva(codigoReserva);
+		Reserva reserva = super.getCadenaHotelera().seleccionarReserva(super.getCliente(),codigoReserva);
 		super.setReserva(reserva);
 		return DTO.getInstance().map(reserva);
 	}

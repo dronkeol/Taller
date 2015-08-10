@@ -86,10 +86,10 @@ public class TomarReservaController extends ModificarReservaController implement
     return DTO.getInstance().map(reserva);
   }
 
-  public ReservaDTO seleccionarReserva(long codigo) {
-    Reserva reserva = super.getCadenaHotelera().seleccionarReserva(codigo);
-    super.setReserva(reserva);
-    return DTO.getInstance().map(reserva);
-  }
+//  public ReservaDTO seleccionarReserva(long codigo) {
+//    Reserva reserva = super.getCadenaHotelera().seleccionarReserva(codigo);
+//    super.setReserva(reserva);
+//    return DTO.getInstance().map(reserva);
+//  }
 
 }

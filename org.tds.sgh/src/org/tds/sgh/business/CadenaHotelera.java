@@ -210,14 +210,24 @@ public class CadenaHotelera {
 		return reservasDelCliente.stream();
 	}
 
-	public Reserva seleccionarReserva(long codigo) {
+	public Reserva seleccionarReserva(Cliente cliente, long codigo) throws Exception {
+		Reserva reserva = null;
 		for (Hotel hotel : hoteles.values()) {
 			Optional<Reserva> opt = hotel.listarReservas().filter(r -> r.getCodigo() == codigo).findFirst();
 			if (opt.isPresent()) {
-				return opt.get();
+				reserva=opt.get();
 			}
 		}
-		return null;
+		if (reserva==null){
+			throw new Exception("No se encuentra reserva para el codigo solicitado!!!");
+		}
+		if (cliente==null){
+			throw new Exception("No se ha seleccionado Cliente!!!");
+		}
+		if (!reserva.getCliente().equals(cliente)){
+			throw new Exception("El cliente asignado a la reserva no concuerda con el cliente actualmente seleccionado!!!");
+		}
+		return reserva;
 	}
 
 	public Reserva modificarReserva(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
