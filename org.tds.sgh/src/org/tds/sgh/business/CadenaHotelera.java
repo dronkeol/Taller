@@ -61,10 +61,6 @@ public class CadenaHotelera {
 
 	public Cliente buscarCliente(String rut) throws Exception {
 		Cliente cliente = clientes.get(rut);
-
-		if (cliente == null)
-			throw new Exception("No existe un cliente con el nombre indicado.");
-
 		return cliente;
 	}
 
@@ -181,7 +177,10 @@ public class CadenaHotelera {
 				.filter(h -> this.confirmaDisponibilidad(h.getNombre(), nombreTipoHabitacion, fechaInicio, fechaFin));
 	}
 
-	public Stream<Reserva> buscarReservasDelCliente(Cliente cliente) {
+	public Stream<Reserva> buscarReservasDelCliente(Cliente cliente) throws Exception {
+		if (cliente==null){
+			throw new Exception("El cliente no ha sido seleccionado!!!");
+		}
 		GregorianCalendar hoy = Infrastructure.getInstance().getCalendario().getHoy();
 		List<Reserva> reservasDelCliente = new ArrayList<Reserva>();
 		for (Hotel hotel : this.hoteles.values()) {

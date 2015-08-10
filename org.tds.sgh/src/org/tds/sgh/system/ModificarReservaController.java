@@ -23,7 +23,7 @@ public class ModificarReservaController extends BaseController implements IModif
 				super.getCadenaHotelera().sugerirAlternativas(pais, nombreTipoHabitacion, fechaInicio, fechaFin));
 	}
 
-	public List<ReservaDTO> buscarReservasDelCliente() {
+	public List<ReservaDTO> buscarReservasDelCliente() throws Exception{
 		return DTO.getInstance().mapReservas(super.getCadenaHotelera().buscarReservasDelCliente(super.getCliente()));
 
 	}
