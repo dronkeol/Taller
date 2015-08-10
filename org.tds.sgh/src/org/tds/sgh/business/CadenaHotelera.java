@@ -164,7 +164,10 @@ public class CadenaHotelera {
 				boolean fechaInicioDespuesFechaFin = Infrastructure.getInstance().getCalendario()
 						.esPosterior(fechaInicio, p.getFechaFin());
 
-				boolean colisionPeriodo = !(fechaFinAntesFechaInicio || fechaInicioDespuesFechaFin);
+				
+				boolean isConsecutiva = Infrastructure.getInstance().getCalendario().esMismoDia(fechaInicio, p.getFechaFin());
+				
+				boolean colisionPeriodo = !(fechaFinAntesFechaInicio || fechaInicioDespuesFechaFin) && !isConsecutiva;
 
 				if (equalsTipoHabitacion && isPendiente && colisionPeriodo) {
 					System.out.println(nombreHotel + " - Colision!!!");
