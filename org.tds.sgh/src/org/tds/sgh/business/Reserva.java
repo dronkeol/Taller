@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.tds.sgh.system.Sequence;
+
 public class Reserva {
 
 	private int codigo;
@@ -27,8 +29,8 @@ public class Reserva {
 	public Reserva(Hotel hotel, Cliente cliente, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) {
 
-		AtomicInteger atomicInteger = new AtomicInteger();
-		this.codigo = atomicInteger.incrementAndGet();
+		
+		this.codigo = Sequence.getInstance().getCounter();
 
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
