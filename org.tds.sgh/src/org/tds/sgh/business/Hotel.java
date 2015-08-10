@@ -155,21 +155,26 @@ public class Hotel {
 		return "Hotel [nombre=" + nombre + "]";
 	}
 
-	public boolean confirmaDisponibilidad(TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+	public boolean confirmaDisponibilidad(TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio,
+			GregorianCalendar fechaFin, Reserva reservaSeleccionada) {
 		Stream<Habitacion> lstHabitaciones = this.listarHabitaciones()
 				.filter(h -> h.getTipoHabitacion().equals(tipoHabitacion));
 		long countHabitaciones = lstHabitaciones.count();
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
-		System.out.println(this.getNombre() + " - Confirmando disponibilidad: " + formatter.format(fechaInicio.getTime())
-				+ "-" + formatter.format(fechaFin.getTime()));
+		System.out.println(this.getNombre() + " - Confirmando disponibilidad: "
+				+ formatter.format(fechaInicio.getTime()) + "-" + formatter.format(fechaFin.getTime()));
 
 		long countReservas = 0;
-		
+
 		if (this.listarReservas().count() > 0) {
 
 			Stream<Reserva> lstReservas = this.listarReservas().filter(p -> {
 
+				if (p.equals(reservaSeleccionada)) {
+					return false;
+				}
+				
 				System.out.println(this.getNombre() + " - Evaluando reserva: " + p.toString());
 				boolean equalsTipoHabitacion = p.getTipoHabitacion().equals(tipoHabitacion);
 
@@ -181,9 +186,9 @@ public class Hotel {
 				boolean fechaInicioDespuesFechaFin = Infrastructure.getInstance().getCalendario()
 						.esPosterior(fechaInicio, p.getFechaFin());
 
-				
-				boolean isConsecutiva = Infrastructure.getInstance().getCalendario().esMismoDia(fechaInicio, p.getFechaFin());
-				
+				boolean isConsecutiva = Infrastructure.getInstance().getCalendario().esMismoDia(fechaInicio,
+						p.getFechaFin());
+
 				boolean colisionPeriodo = !(fechaFinAntesFechaInicio || fechaInicioDespuesFechaFin) && !isConsecutiva;
 
 				if (equalsTipoHabitacion && isPendiente && colisionPeriodo) {
@@ -192,12 +197,13 @@ public class Hotel {
 				} else {
 					return false;
 				}
+
 			}
 
 			);
 			countReservas = lstReservas.count();
 		}
-		return countHabitaciones>countReservas;
+		return countHabitaciones > countReservas;
 	}
 
 	public boolean confirmaDisponibilidadPorModificacion(TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio,
@@ -207,11 +213,11 @@ public class Hotel {
 		long countHabitaciones = lstHabitaciones.count();
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
-		System.out.println(this.getNombre() + " - Confirmando disponibilidad: " + formatter.format(fechaInicio.getTime())
-				+ "-" + formatter.format(fechaFin.getTime()));
+		System.out.println(this.getNombre() + " - Confirmando disponibilidad: "
+				+ formatter.format(fechaInicio.getTime()) + "-" + formatter.format(fechaFin.getTime()));
 
 		long countReservas = 0;
-		
+
 		if (this.listarReservas().count() > 0) {
 
 			Stream<Reserva> lstReservas = this.listarReservas().filter(p -> {
@@ -227,9 +233,9 @@ public class Hotel {
 				boolean fechaInicioDespuesFechaFin = Infrastructure.getInstance().getCalendario()
 						.esPosterior(fechaInicio, p.getFechaFin());
 
-				
-				boolean isConsecutiva = Infrastructure.getInstance().getCalendario().esMismoDia(fechaInicio, p.getFechaFin());
-				
+				boolean isConsecutiva = Infrastructure.getInstance().getCalendario().esMismoDia(fechaInicio,
+						p.getFechaFin());
+
 				boolean colisionPeriodo = !(fechaFinAntesFechaInicio || fechaInicioDespuesFechaFin) && !isConsecutiva;
 
 				if (equalsTipoHabitacion && isPendiente && colisionPeriodo) {
@@ -242,12 +248,12 @@ public class Hotel {
 
 			);
 			countReservas = lstReservas.count();
-			
-			if (countReservas==1 && countHabitaciones==1){
+
+			if (countReservas == 1 && countHabitaciones == 1) {
 				return true;
 			}
 		}
-		return countHabitaciones>countReservas;
+		return countHabitaciones > countReservas;
 	}
 
 }

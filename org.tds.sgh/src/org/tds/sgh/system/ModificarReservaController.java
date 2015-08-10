@@ -20,7 +20,7 @@ public class ModificarReservaController extends BaseController implements IModif
 	public List<HotelDTO> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin) throws Exception {
 		return DTO.getInstance().mapHoteles(
-				super.getCadenaHotelera().sugerirAlternativas(pais, nombreTipoHabitacion, fechaInicio, fechaFin));
+				super.getCadenaHotelera().sugerirAlternativas(pais, nombreTipoHabitacion, fechaInicio, fechaFin,super.getReserva()));
 	}
 
 	public List<ReservaDTO> buscarReservasDelCliente() throws Exception{
@@ -39,7 +39,7 @@ public class ModificarReservaController extends BaseController implements IModif
 	public boolean confirmarDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
 		return super.getCadenaHotelera().confirmaDisponibilidad(nombreHotel, nombreTipoHabitacion, fechaInicio,
-				fechaFin);
+				fechaFin,super.getReserva());
 	}
 
 	@Override
