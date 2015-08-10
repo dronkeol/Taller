@@ -1,11 +1,18 @@
 package org.tds.sgh.business;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Habitacion
 {
 	// Attributes (private) -----------------------------------------------------------------------
 	
 	private TipoHabitacion tipoHabitacion;
 	
+	@Id
+	@Column(name = "nombre")
 	private String nombre;
 	
 	

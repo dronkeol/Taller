@@ -11,8 +11,8 @@ import org.tds.sgh.dtos.DTO;
 public class BaseController {
 
   private CadenaHotelera cadenaHotelera;
-  private Cliente cliente;
   private Reserva reserva;
+  private Cliente cliente;
 
   public BaseController(CadenaHotelera cadenaHotelera) {
     this.cadenaHotelera = cadenaHotelera;
@@ -23,7 +23,7 @@ public class BaseController {
   }
 
   public Cliente getCliente() {
-    return cliente;
+    return this.cliente;
   }
 
   public void setCadenaHotelera(CadenaHotelera cadenaHotelera) {
@@ -31,7 +31,7 @@ public class BaseController {
   }
 
   public void setCliente(Cliente cliente) {
-    this.cliente = cliente;
+    this.cliente=cliente;
   }
 
   public List<ClienteDTO> buscarCliente(String patronNombreCliente) {
@@ -41,7 +41,7 @@ public class BaseController {
 
   public ClienteDTO seleccionarCliente(String rut)throws Exception {
     Cliente cliente = this.getCadenaHotelera().buscarCliente(rut);
-    this.cliente = cliente;
+    this.setCliente(cliente);
     return DTO.getInstance().map(cliente);
   }
 

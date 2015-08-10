@@ -9,12 +9,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import org.tds.sgh.infrastructure.Infrastructure;
 
+@Entity
 public class CadenaHotelera {
 	// Attributes (private)
 	// -----------------------------------------------------------------------
 
+	@Id
+	@Column(name = "nombre")
 	private String nombre;
 
 	private Map<String, Cliente> clientes;
@@ -22,9 +29,6 @@ public class CadenaHotelera {
 	private Map<String, Hotel> hoteles;
 
 	private Map<String, TipoHabitacion> tiposHabitacion;
-
-	// Constructors (public)
-	// ----------------------------------------------------------------------
 
 	public CadenaHotelera(String nombre) {
 		this.nombre = nombre;
@@ -208,6 +212,21 @@ public class CadenaHotelera {
 		return reserva;
 	}
 
+	public Reserva seleccionarReserva( long codigo) throws Exception {
+		Reserva reserva = null;
+		for (Hotel hotel : hoteles.values()) {
+			Optional<Reserva> opt = hotel.listarReservas().filter(r -> r.getCodigo() == codigo).findFirst();
+			if (opt.isPresent()) {
+				reserva = opt.get();
+			}
+		}
+		if (reserva == null) {
+			throw new Exception("No se encuentra reserva para el codigo solicitado!!!");
+		}
+		
+		return reserva;
+	}
+	
 	public Reserva modificarReserva(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
 		System.out.println(nombreHotel + " - Modificando reserva   (Antes): " + reserva);

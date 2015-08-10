@@ -1,9 +1,15 @@
 package org.tds.sgh.business;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Cliente
 {
 	// Attributes (private) -----------------------------------------------------------------------
-	
+	@Id
+	@Column(name = "rut")
 	private String rut;
 	
 	private String nombre;
