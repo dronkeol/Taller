@@ -135,16 +135,15 @@ public class CadenaHotelera {
 		long countHabitaciones = lstHabitaciones.count();
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
-		System.out.println(nombreHotel + " - Confirmando disponibilidad: " + formatter.format(fechaInicio.getTime()) + "-"
-				+ formatter.format(fechaFin.getTime()));
+		System.out.println(nombreHotel + " - Confirmando disponibilidad: " + formatter.format(fechaInicio.getTime())
+				+ "-" + formatter.format(fechaFin.getTime()));
 
 		long countReservas = 0;
 		if (oHotel.listarReservas().count() > 0) {
 
 			Stream<Reserva> lstReservas = oHotel.listarReservas().filter(p -> {
 
-				System.out.println(
-						nombreHotel +  " - Evaluando reserva: " + p.toString());
+				System.out.println(nombreHotel + " - Evaluando reserva: " + p.toString());
 				boolean equalsTipoHabitacion = p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
 
 				boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
@@ -152,9 +151,9 @@ public class CadenaHotelera {
 				boolean fechaFinAntesFechaInicio = Infrastructure.getInstance().getCalendario().esAnterior(fechaFin,
 						p.getFechaInicio());
 
-				boolean fechaInicioDespuesFechaFin = Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio,
-						p.getFechaFin());
-				
+				boolean fechaInicioDespuesFechaFin = Infrastructure.getInstance().getCalendario()
+						.esPosterior(fechaInicio, p.getFechaFin());
+
 				boolean colisionPeriodo = !(fechaFinAntesFechaInicio || fechaInicioDespuesFechaFin);
 
 				if (equalsTipoHabitacion && isPendiente && colisionPeriodo) {
@@ -178,7 +177,7 @@ public class CadenaHotelera {
 	}
 
 	public Stream<Reserva> buscarReservasDelCliente(Cliente cliente) throws Exception {
-		if (cliente==null){
+		if (cliente == null) {
 			throw new Exception("El cliente no ha sido seleccionado!!!");
 		}
 		GregorianCalendar hoy = Infrastructure.getInstance().getCalendario().getHoy();
@@ -187,7 +186,8 @@ public class CadenaHotelera {
 			List<Reserva> reservas = hotel.listarReservas().collect(Collectors.toList());
 			for (Reserva reserva : reservas) {
 				if (reserva.getCliente().equals(cliente)
-						&& Infrastructure.getInstance().getCalendario().esPosterior(reserva.getFechaFin(),hoy)) {
+						&& Infrastructure.getInstance().getCalendario().esPosterior(reserva.getFechaFin(), hoy)
+						&& EstadoReserva.Pendiente.equals(reserva.getEstado())) {
 					reservasDelCliente.add(reserva);
 				}
 			}
@@ -208,16 +208,17 @@ public class CadenaHotelera {
 	public Reserva modificarReserva(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
 		System.out.println(nombreHotel + " - Modificando reserva   (Antes): " + reserva);
-		
+
 		Hotel nuevoHotel = this.hoteles.get(nombreHotel);
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
-		reserva.getHotel().modificarReserva(reserva, nuevoHotel, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
-	
+		reserva.getHotel().modificarReserva(reserva, nuevoHotel, tipoHabitacion, fechaInicio, fechaFin,
+				modificablePorHuesped);
+
 		System.out.println(nombreHotel + " - Modificando reserva (Despues): " + reserva);
 		return reserva;
 	}
-	
-	public Reserva cancelarReserva(Reserva reserva){
+
+	public Reserva cancelarReserva(Reserva reserva) {
 		return reserva.cancelarReserva(reserva);
 	}
 
