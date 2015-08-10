@@ -121,17 +121,27 @@ public class CadenaHotelera {
 	}
 
 	public boolean confirmaDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
-			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) throws Exception {
 
 		Hotel oHotel = null;
-		try {
-			oHotel = this.buscarHotel(nombreHotel);
-		} catch (Exception e) {
-			return false;
+		oHotel = this.buscarHotel(nombreHotel);
+
+		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
+		if (tipoHabitacion == null) {
+			throw new Exception("No existe el tipo de habitacion solicitada!!!");
+		}
+		
+		GregorianCalendar hoy = Infrastructure.getInstance().getCalendario().getHoy();
+		if (Infrastructure.getInstance().getCalendario().esAnterior(fechaInicio, hoy)){
+			throw new Exception("Fecha de inicio esta en el pasado!!!");
+		}
+		
+		if (Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio,fechaFin)){
+			throw new Exception("Fecha de inicio no puede ser posterior a Fecha de fin!!!");
 		}
 
 		Stream<Habitacion> lstHabitaciones = oHotel.listarHabitaciones()
-				.filter(h -> h.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion));
+				.filter(h -> h.getTipoHabitacion().equals(tipoHabitacion));
 		long countHabitaciones = lstHabitaciones.count();
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
@@ -171,9 +181,14 @@ public class CadenaHotelera {
 	}
 
 	public Stream<Hotel> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
-			GregorianCalendar fechaFin) {
-		return this.hoteles.values().stream().filter(h -> h.getPais().equals(pais))
-				.filter(h -> this.confirmaDisponibilidad(h.getNombre(), nombreTipoHabitacion, fechaInicio, fechaFin));
+			GregorianCalendar fechaFin) throws Exception {
+		List<Hotel> alternativas = new ArrayList<Hotel>();
+		for (Hotel hotel : this.hoteles.values()) {
+			if (this.confirmaDisponibilidad(hotel.getNombre(), nombreTipoHabitacion, fechaInicio, fechaFin)) {
+				alternativas.add(hotel);
+			}
+		}
+		return alternativas.stream();
 	}
 
 	public Stream<Reserva> buscarReservasDelCliente(Cliente cliente) throws Exception {
@@ -218,8 +233,18 @@ public class CadenaHotelera {
 		return reserva;
 	}
 
-	public Reserva cancelarReserva(Reserva reserva) {
-		return reserva.cancelarReserva(reserva);
+	public Reserva cancelarReserva(Reserva reserva){
+		Reserva reservaMod = reserva.cancelarReserva(reserva);
+
+		for (String key : hoteles.keySet()) {
+		    if(reservaMod.getHotel().getNombre().equals(key)){
+		    	Hotel h = hoteles.get(key);
+		    	Map<Integer, Reserva> r = h.getReservasMap();
+		    	r.remove(reserva.getCodigo());
+		    }
+		}
+		
+		return reservaMod;
 	}
 
 }
