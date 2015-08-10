@@ -168,5 +168,8 @@ public class Reserva {
 				+ ", habitacion=" + habitacion + "]";
 	}
 	
-	
+	public Reserva cancelarReserva(Reserva reserva){
+		reserva.setEstado(EstadoReserva.Cancelada);
+		return this;
+	}
 }
