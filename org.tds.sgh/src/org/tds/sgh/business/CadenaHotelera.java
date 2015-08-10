@@ -124,10 +124,6 @@ public class CadenaHotelera {
 		return tiposHabitacion.values().stream();
 	}
 
-	public void lala() {
-
-	}
-
 	public boolean confirmaDisponibilidad(String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin) {
 
@@ -143,7 +139,7 @@ public class CadenaHotelera {
 		long countHabitaciones = lstHabitaciones.count();
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
-		System.out.println(nombreHotel + " - Confirmando disponibilidad entre: " + formatter.format(fechaInicio.getTime()) + "-"
+		System.out.println(nombreHotel + " - Confirmando disponibilidad: " + formatter.format(fechaInicio.getTime()) + "-"
 				+ formatter.format(fechaFin.getTime()));
 
 		long countReservas = 0;
@@ -152,8 +148,7 @@ public class CadenaHotelera {
 			Stream<Reserva> lstReservas = oHotel.listarReservas().filter(p -> {
 
 				System.out.println(
-						"Evaluando reserva: " + formatter.format(p.getFechaInicio().getTime())
-								+ "-" + formatter.format(p.getFechaFin().getTime()));
+						nombreHotel +  " - Evaluando reserva: " + p.toString());
 				boolean equalsTipoHabitacion = p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
 
 				boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
@@ -167,7 +162,7 @@ public class CadenaHotelera {
 				boolean colisionPeriodo = !(fechaFinAntesFechaInicio || fechaInicioDespuesFechaFin);
 
 				if (equalsTipoHabitacion && isPendiente && colisionPeriodo) {
-					System.out.println("Colision!!!");
+					System.out.println(nombreHotel + " - Colision!!!");
 					return true;
 				} else {
 					return false;
@@ -211,11 +206,14 @@ public class CadenaHotelera {
 
 	public Reserva modificarReserva(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
-		System.out.println(nombreHotel + " - Modificando reserva entre: " + formatter.format(fechaInicio.getTime()) + "-"
-				+ formatter.format(fechaFin.getTime()));
-		return reserva.modificarReserva(this.hoteles.get(nombreHotel), this.tiposHabitacion.get(nombreTipoHabitacion),
-				fechaInicio, fechaFin, modificablePorHuesped);
+		System.out.println(nombreHotel + " - Modificando reserva   (Antes): " + reserva);
+		
+		Hotel nuevoHotel = this.hoteles.get(nombreHotel);
+		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
+		reserva.getHotel().modificarReserva(reserva, nuevoHotel, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
+	
+		System.out.println(nombreHotel + " - Modificando reserva (Despues): " + reserva);
+		return reserva;
 	}
 
 }

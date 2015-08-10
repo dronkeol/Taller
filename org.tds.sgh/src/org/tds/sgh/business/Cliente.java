@@ -48,13 +48,17 @@ public class Cliente
 		return direccion;
 	}
 	
-	public String getTelefono()
-	{
+	public String getTelefono() {
 		return telefono;
 	}
-	
-	public String getMail()
-	{
+
+	public String getMail() {
 		return mail;
 	}
+
+	@Override
+	public String toString() {
+		return "Cliente [rut=" + rut + ", nombre=" + nombre + "]";
+	}
+	
 }

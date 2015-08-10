@@ -1,24 +1,29 @@
 package org.tds.sgh.business;
 
-public class TipoHabitacion
-{
-	// Attributes (private) -----------------------------------------------------------------------
-	
+public class TipoHabitacion {
+	// Attributes (private)
+	// -----------------------------------------------------------------------
+
 	private String nombre;
-	
-	
-	// Constructors (public) ----------------------------------------------------------------------
-	
-	public TipoHabitacion(String nombre)
-	{
+
+	// Constructors (public)
+	// ----------------------------------------------------------------------
+
+	public TipoHabitacion(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
-	// Properties (public) ------------------------------------------------------------------------
-	
-	public String getNombre()
-	{
+
+	// Properties (public)
+	// ------------------------------------------------------------------------
+
+	public String getNombre() {
 		return nombre;
 	}
+
+	@Override
+	public String toString() {
+		return "TipoHabitacion [nombre=" + nombre + "]";
+	}
+	
+	
 }
