@@ -215,5 +215,9 @@ public class CadenaHotelera {
 		System.out.println(nombreHotel + " - Modificando reserva (Despues): " + reserva);
 		return reserva;
 	}
+	
+	public Reserva cancelarReserva(Reserva reserva){
+		return reserva.cancelarReserva(reserva);
+	}
 
 }

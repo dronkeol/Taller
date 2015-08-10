@@ -35,8 +35,7 @@ public class ControllerFactory implements IControllerFactory {
 
   @Override
   public ICancelarReservaController createCancelarReservaController() {
-    // TODO
-    throw new NotImplementedException();
+	  return new CancelarReservaController(cadenaHotelera);
   }
 
   public ITomarReservaController createTomarReservaController() {
