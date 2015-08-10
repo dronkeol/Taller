@@ -146,7 +146,7 @@ public class Hotel {
 	}
 
 	public void modificarReserva(Reserva reserva, Hotel nuevoHotel, TipoHabitacion tipoHabitacion,
-			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
 		reserva.modificarReserva(nuevoHotel, tipoHabitacion, fechaInicio, fechaFin, modificablePorHuesped);
 	}
 

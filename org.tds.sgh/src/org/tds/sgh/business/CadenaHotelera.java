@@ -228,7 +228,7 @@ public class CadenaHotelera {
 	}
 	
 	public Reserva modificarReserva(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
-			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
+			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
 		System.out.println(nombreHotel + " - Modificando reserva   (Antes): " + reserva);
 
 		Hotel nuevoHotel = this.hoteles.get(nombreHotel);

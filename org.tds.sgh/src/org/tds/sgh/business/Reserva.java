@@ -146,16 +146,21 @@ public class Reserva {
 	}
 
 	public Reserva modificarReserva(Hotel hotel, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio,
-			GregorianCalendar fechaFin, boolean modificablePorHuesped) {
-		this.setFechaInicio(fechaInicio);
-		this.setFechaFin(fechaFin);
-		this.setTipoHabitacion(tipoHabitacion);
-		this.setModificablePorHuesped(modificablePorHuesped);
-		
-		if (!this.hotel.equals(hotel)){
-			this.getHotel().eliminarReserva(this);
-			this.setHotel(hotel);
+			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
+		if(this.isModificablePorHuesped()){
+			this.setFechaInicio(fechaInicio);
+			this.setFechaFin(fechaFin);
+			this.setTipoHabitacion(tipoHabitacion);
+			this.setModificablePorHuesped(modificablePorHuesped);
+			
+			if (!this.hotel.equals(hotel)){
+				this.getHotel().eliminarReserva(this);
+				this.setHotel(hotel);
+			}
+		} else {
+			throw new Exception("Esta reserva no es modificable");
 		}
+		
 		return this;
 	}
 
