@@ -1,6 +1,5 @@
 package org.tds.sgh.business;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -139,48 +138,7 @@ public class CadenaHotelera {
 		if (Infrastructure.getInstance().getCalendario().esPosterior(fechaInicio, fechaFin)) {
 			throw new Exception("Fecha de inicio no puede ser posterior a Fecha de fin!!!");
 		}
-
-		Stream<Habitacion> lstHabitaciones = oHotel.listarHabitaciones()
-				.filter(h -> h.getTipoHabitacion().equals(tipoHabitacion));
-		long countHabitaciones = lstHabitaciones.count();
-
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
-		System.out.println(nombreHotel + " - Confirmando disponibilidad: " + formatter.format(fechaInicio.getTime())
-				+ "-" + formatter.format(fechaFin.getTime()));
-
-		long countReservas = 0;
-		if (oHotel.listarReservas().count() > 0) {
-
-			Stream<Reserva> lstReservas = oHotel.listarReservas().filter(p -> {
-
-				System.out.println(nombreHotel + " - Evaluando reserva: " + p.toString());
-				boolean equalsTipoHabitacion = p.getTipoHabitacion().getNombre().equals(nombreTipoHabitacion);
-
-				boolean isPendiente = EstadoReserva.Pendiente.equals(p.getEstado());
-
-				boolean fechaFinAntesFechaInicio = Infrastructure.getInstance().getCalendario().esAnterior(fechaFin,
-						p.getFechaInicio());
-
-				boolean fechaInicioDespuesFechaFin = Infrastructure.getInstance().getCalendario()
-						.esPosterior(fechaInicio, p.getFechaFin());
-
-				
-				boolean isConsecutiva = Infrastructure.getInstance().getCalendario().esMismoDia(fechaInicio, p.getFechaFin());
-				
-				boolean colisionPeriodo = !(fechaFinAntesFechaInicio || fechaInicioDespuesFechaFin) && !isConsecutiva;
-
-				if (equalsTipoHabitacion && isPendiente && colisionPeriodo) {
-					System.out.println(nombreHotel + " - Colision!!!");
-					return true;
-				} else {
-					return false;
-				}
-			}
-
-			);
-			countReservas = lstReservas.count();
-		}
-		return countHabitaciones > countReservas;
+		return oHotel.confirmaDisponibilidad(tipoHabitacion,fechaInicio,fechaFin);
 	}
 
 	public Stream<Hotel> sugerirAlternativas(String pais, String nombreTipoHabitacion, GregorianCalendar fechaInicio,
