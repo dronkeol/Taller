@@ -142,7 +142,7 @@ public class Reserva {
 	  
   }
 
-public Reserva modificarReserva(Hotel hotel, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio2, GregorianCalendar fechaFin2, boolean modificablePorHuesped2) {
+public Reserva modificarReserva(Hotel hotel, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
 	this.setFechaInicio(fechaInicio);
 	this.setFechaFin(fechaFin);
 	this.setTipoHabitacion(tipoHabitacion);

@@ -211,6 +211,9 @@ public class CadenaHotelera {
 
 	public Reserva modificarReserva(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); // lowercase
+		System.out.println(nombreHotel + " - Modificando reserva entre: " + formatter.format(fechaInicio.getTime()) + "-"
+				+ formatter.format(fechaFin.getTime()));
 		return reserva.modificarReserva(this.hoteles.get(nombreHotel), this.tiposHabitacion.get(nombreTipoHabitacion),
 				fechaInicio, fechaFin, modificablePorHuesped);
 	}
