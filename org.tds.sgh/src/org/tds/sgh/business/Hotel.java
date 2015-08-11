@@ -6,12 +6,15 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Stream;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 
 import org.tds.sgh.infrastructure.Infrastructure;
 
@@ -21,13 +24,19 @@ public class Hotel {
 	// -----------------------------------------------------------------------
 
 	@Id
-	@Column(name = "nombre")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
 	private String nombre;
 
 	private String pais;
 
+	@OneToMany(cascade =CascadeType.ALL)
+	@MapKey(name="nombre")
 	private Map<String, Habitacion> habitaciones;
 
+	@OneToMany(cascade =CascadeType.ALL)
+	@MapKey(name="codigo")
 	private Map<Integer, Reserva> reservas;
 
 	// Constructors (public)
@@ -46,6 +55,14 @@ public class Hotel {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getPais() {
@@ -174,7 +191,7 @@ public class Hotel {
 				if (p.equals(reservaSeleccionada)) {
 					return false;
 				}
-				
+
 				System.out.println(this.getNombre() + " - Evaluando reserva: " + p.toString());
 				boolean equalsTipoHabitacion = p.getTipoHabitacion().equals(tipoHabitacion);
 

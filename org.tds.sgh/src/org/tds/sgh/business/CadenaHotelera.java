@@ -9,9 +9,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 
 import org.tds.sgh.infrastructure.Infrastructure;
 
@@ -21,13 +25,21 @@ public class CadenaHotelera {
 	// -----------------------------------------------------------------------
 
 	@Id
-	@Column(name = "nombre")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
 	private String nombre;
 
+	@OneToMany(cascade =CascadeType.ALL)
+	@MapKey(name="nombre")
 	private Map<String, Cliente> clientes;
 
+	@OneToMany(cascade =CascadeType.ALL)
+	@MapKey(name="nombre")
 	private Map<String, Hotel> hoteles;
 
+	@OneToMany(cascade =CascadeType.ALL)
+	@MapKey(name="nombre")
 	private Map<String, TipoHabitacion> tiposHabitacion;
 
 	public CadenaHotelera(String nombre) {
@@ -42,6 +54,14 @@ public class CadenaHotelera {
 
 	// Properties (public)
 	// ------------------------------------------------------------------------
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getNombre() {
 		return nombre;

@@ -5,22 +5,57 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.tds.sgh.system.Sequence;
 
+@Entity
 public class Reserva {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
 	private int codigo;
+
+	@OneToOne(cascade =CascadeType.ALL)
 	private Cliente cliente;
+	
+	@OneToOne(cascade =CascadeType.ALL)
 	private Hotel hotel;
+
+	@OneToOne(cascade =CascadeType.ALL)
 	private TipoHabitacion tipoHabitacion;
+
 	private GregorianCalendar fechaInicio;
 	private GregorianCalendar fechaFin;
 	boolean modificablePorHuesped;
+
+	@Enumerated(EnumType.STRING)
 	private EstadoReserva estado;
+
+	@OneToMany(cascade =CascadeType.ALL)
 	private Collection<Huesped> huespedes;
+
+	@OneToOne(cascade =CascadeType.ALL)
 	private Habitacion habitacion;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public boolean isPendiente() {
 		return EstadoReserva.Pendiente.equals(estado);
@@ -29,7 +64,6 @@ public class Reserva {
 	public Reserva(Hotel hotel, Cliente cliente, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) {
 
-		
 		this.codigo = Sequence.getInstance().getCounter();
 
 		this.fechaInicio = fechaInicio;
@@ -147,33 +181,33 @@ public class Reserva {
 
 	public Reserva modificarReserva(Hotel hotel, TipoHabitacion tipoHabitacion, GregorianCalendar fechaInicio,
 			GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
-		if(this.isModificablePorHuesped()){
+		if (this.isModificablePorHuesped()) {
 			this.setFechaInicio(fechaInicio);
 			this.setFechaFin(fechaFin);
 			this.setTipoHabitacion(tipoHabitacion);
 			this.setModificablePorHuesped(modificablePorHuesped);
-			
-			if (!this.hotel.equals(hotel)){
+
+			if (!this.hotel.equals(hotel)) {
 				this.getHotel().eliminarReserva(this);
 				this.setHotel(hotel);
 			}
 		} else {
 			throw new Exception("Esta reserva no es modificable");
 		}
-		
+
 		return this;
 	}
 
 	@Override
 	public String toString() {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		return "Reserva [codigo=" + codigo + ", cliente=" + cliente + ", hotel=" + hotel + ", tipoHabitacion="
-				+ tipoHabitacion + ", fechaInicio=" + formatter.format(fechaInicio.getTime()) + ", fechaFin=" + formatter.format(fechaFin.getTime())
-				+ ", modificablePorHuesped=" + modificablePorHuesped + ", estado=" + estado + ", huespedes=" + huespedes
-				+ ", habitacion=" + habitacion + "]";
+				+ tipoHabitacion + ", fechaInicio=" + formatter.format(fechaInicio.getTime()) + ", fechaFin="
+				+ formatter.format(fechaFin.getTime()) + ", modificablePorHuesped=" + modificablePorHuesped
+				+ ", estado=" + estado + ", huespedes=" + huespedes + ", habitacion=" + habitacion + "]";
 	}
-	
-	public Reserva cancelarReserva(Reserva reserva){
+
+	public Reserva cancelarReserva(Reserva reserva) {
 		reserva.setEstado(EstadoReserva.Cancelada);
 		return this;
 	}
