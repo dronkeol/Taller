@@ -30,16 +30,16 @@ public class CadenaHotelera {
 
 	private String nombre;
 
-	@OneToMany(cascade =CascadeType.ALL)
-	@MapKey(name="nombre")
+	@OneToMany(cascade = CascadeType.ALL)
+	@MapKey(name = "nombre")
 	private Map<String, Cliente> clientes;
 
-	@OneToMany(cascade =CascadeType.ALL)
-	@MapKey(name="nombre")
+	@OneToMany(cascade = CascadeType.ALL)
+	@MapKey(name = "nombre")
 	private Map<String, Hotel> hoteles;
 
-	@OneToMany(cascade =CascadeType.ALL)
-	@MapKey(name="nombre")
+	@OneToMany(cascade = CascadeType.ALL)
+	@MapKey(name = "nombre")
 	private Map<String, TipoHabitacion> tiposHabitacion;
 
 	public CadenaHotelera(String nombre) {
@@ -72,9 +72,9 @@ public class CadenaHotelera {
 
 	public Cliente agregarCliente(String rut, String nombre, String direccion, String telefono, String mail)
 			throws Exception {
-		if (clientes.containsKey(rut))
+		if (clientes.containsKey(rut)) {
 			throw new Exception("Ya existe un cliente con el RUT indicado.");
-
+		}
 		Cliente cliente = new Cliente(rut, nombre, direccion, telefono, mail);
 
 		clientes.put(cliente.getRut(), cliente);
@@ -250,14 +250,12 @@ public class CadenaHotelera {
 
 	public Reserva modificarReserva(Reserva reserva, String nombreHotel, String nombreTipoHabitacion,
 			GregorianCalendar fechaInicio, GregorianCalendar fechaFin, boolean modificablePorHuesped) throws Exception {
-		System.out.println(nombreHotel + " - Modificando reserva   (Antes): " + reserva);
 
 		Hotel nuevoHotel = this.hoteles.get(nombreHotel);
 		TipoHabitacion tipoHabitacion = this.tiposHabitacion.get(nombreTipoHabitacion);
 		reserva.getHotel().modificarReserva(reserva, nuevoHotel, tipoHabitacion, fechaInicio, fechaFin,
 				modificablePorHuesped);
 
-		System.out.println(nombreHotel + " - Modificando reserva (Despues): " + reserva);
 		return reserva;
 	}
 
